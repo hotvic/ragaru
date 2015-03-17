@@ -2,7 +2,7 @@ libraries.lugaru {
     name = lugaru
     version = $(project.version)
     install = false
-    sources = FileIO.cpp WinInput.cpp pack.cpp pack_private.cpp unpack.cpp unpack_private.cpp private.cpp MacCompatibility.cpp Frustum.cpp GameDraw.cpp GameInitDispose.cpp GameTick.cpp Globals.cpp Lights.cpp Models.cpp Objects.cpp openal_wrapper.cpp Person.cpp Quaternions.cpp Skeleton.cpp Skybox.cpp Sprites.cpp Terrain.cpp Text.cpp TGALoader.cpp Weapons.cpp
+    sources = Log.cpp FileIO.cpp WinInput.cpp pack.cpp pack_private.cpp unpack.cpp unpack_private.cpp private.cpp MacCompatibility.cpp Frustum.cpp GameDraw.cpp GameInitDispose.cpp GameTick.cpp Globals.cpp Lights.cpp Models.cpp Objects.cpp openal_wrapper.cpp Person.cpp Quaternions.cpp Skeleton.cpp Skybox.cpp Sprites.cpp Terrain.cpp Text.cpp TGALoader.cpp Weapons.cpp
     packages = sdl openal ogg vorbisfile glibmm-2.4
 }
 

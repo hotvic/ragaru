@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Game.h"
 #include "Skeleton.h"
 #include "openal_wrapper.h"
+#include "Log.h"
 
 extern float multiplier;
 extern float gravity;
@@ -1015,12 +1016,10 @@ void Animation::Load(char *filename, int aheight, int aattack)
 	static XYZ startoffset,endoffset;
 	static int howmany;
 
-	LOGFUNC;
-
 	// Changing the filename into something the OS can understand
 	char *fixedFN = ConvertFileName(filename);
 
-	LOG(std::string("Loading animation...") + fixedFN);
+	LOG->LOG("Loading animation... %s", fixedFN);
 
 	deallocate();
 
@@ -1150,9 +1149,6 @@ void Skeleton::Load(const char *filename,       const char *lowfilename, const c
 	static int i,j,tempmuscle;
 	int newload;
 	int edit;
-
-	LOGFUNC;
-
 
 	newload=0;
 

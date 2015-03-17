@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Game.h"
 #include "openal_wrapper.h"
 #include "FileIO.h"
+#include "Log.h"
 
 extern float screenwidth,screenheight;
 extern float viewdistance;
@@ -117,19 +118,12 @@ extern OPENAL_STREAM * strm[20];
 extern "C"	void PlaySoundEx(int channel, OPENAL_SAMPLE *sptr, OPENAL_DSPUNIT *dsp, signed char startpaused);
 extern "C" void PlayStreamEx(int chan, OPENAL_STREAM *sptr, OPENAL_DSPUNIT *dsp, signed char startpaused);
 
-void LOG(const std::string &fmt, ...)
-{
-    // !!! FIXME: write me.
-}
-
 
 Game::TextureList Game::textures;
 
 void Game::Dispose()
 {
 	int i,j;
-
-	LOGFUNC;
 
 	if(endgame==2){
 		accountcampaignchoicesmade[accountactive]=0;
@@ -139,10 +133,11 @@ void Game::Dispose()
 	}
 
 
-	sprintf (mapname, ":Data:Users");
+	sprintf(mapname, "Users");
 
-	FILE			*tfile;
-	tfile = fopen(locateDataFile(mapname).c_str(), "wb");
+	FILE *tfile;
+	tfile = fopen(locateConfigFile(mapname).c_str(), "wb");
+
 	if (tfile)
 	{
 		fpackf(tfile, "Bi", numaccounts);
@@ -194,7 +189,7 @@ void Game::Dispose()
 	}
 	textures.clear();
 
-	LOG("Shutting down sound system...");
+	LOG->LOG("Shutting down sound system...");
 
 	OPENAL_StopSound(OPENAL_ALL);
 
@@ -227,9 +222,7 @@ void Game::Dispose()
 //void Game::LoadSounds();
 void Game::LoadSounds()
 {
-	LOGFUNC;
-
-	LOG(std::string("Loading sounds..."));
+	LOG->LOG("Loading sounds...");
 
 	OPENAL_3D_SetDopplerFactor(0);
 
@@ -420,13 +413,13 @@ void Game::LoadSounds()
 	OPENAL_Sample_SetMinMaxDistance(samp[staffbreaksound], 8.0f, 2000.0f);
 }
 
-void Game::LoadTexture(const char *filePath, GLuint *textureid,int mipmap, bool hasalpha)
+void Game::LoadTexture(const char *filePath, GLuint *textureid, int mipmap, bool hasalpha)
 {
 	GLuint		type;
 
-    const std::string fileName = locateDataFile(filePath);
+    LOG->DBG("LoadTexture: %s ", filePath);
 
-    std::cout << "LoadTexture: " << filePath << " fileName: " << locateDataFile(filePath) << std::endl;
+    const std::string fileName = locateDataFile(filePath);
 
 	//Load Image
 	bool uploaded = upload_image(fileName.c_str(), hasalpha);
@@ -964,8 +957,6 @@ void Game::InitGame()
 	}
 #endif
 
-	LOGFUNC;
-
 	autocam=0;
 
 	int i,j;
@@ -986,12 +977,13 @@ void Game::InitGame()
 	sprintf (tempstring, "%d-%d-%d-%d", num1/10000, num1%10000, num2/10000, num2%10000);
 	*/
 
-	FILE			*tfile;
+	FILE *tfile;
 
 	accountactive=-1;
 
-	sprintf (mapname, ":Data:Users");
-	tfile = fopen(locateDataFile(mapname).c_str(), "rb");
+	sprintf(mapname, "Users");
+	tfile = fopen(locateConfigFile(mapname).c_str(), "rb");
+
 	if (tfile)
 	{
 		funpackf(tfile, "Bi", &numaccounts);
@@ -1160,7 +1152,7 @@ void Game::InitGame()
 		strm[it] = NULL;
 	}
 
-	LOG("Initializing sound system...");
+	LOG->LOG("Initializing sound system...");
 
     int output = -1;
 
@@ -1326,8 +1318,6 @@ void Game::LoadStuff()
 	static int i,j,texsize;
 	float megascale =1;
 
-	LOGFUNC;
-
 	visibleloading=1;
 
 	/*musicvolume[3]=512;
@@ -1403,7 +1393,7 @@ void Game::LoadStuff()
 	*/
 
 
-	LOG("Loading weapon data...");
+	LOG->LOG("Loading weapon data...");
 
 	LoadTexture("Textures/knife.png",&weapons.knifetextureptr,0,1);
 	LoadTexture("Textures/bloodknife.png",&weapons.bloodknifetextureptr,0,1);

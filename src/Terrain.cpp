@@ -23,6 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Terrain.h"
 #include "Objects.h"
 #include "FileIO.h"
+
 extern XYZ viewer;
 extern float viewdistance;
 extern float lightambient[3],lightbrightness[3];

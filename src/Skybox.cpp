@@ -39,8 +39,6 @@ bool	SkyBox::load( const char *ffront,const char *fleft,const char *fback,const 
 /*	static GLuint		type;
 	unsigned char fileNamep[256];
 */
-	LOGFUNC;
-
 	//front
 	Game::LoadTexture(ffront, &front, true, false);
 	//left

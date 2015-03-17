@@ -26,6 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <ctime>
 #include "Game.h"
 #include "openal_wrapper.h"
+#include "Log.h"
 
 using namespace std;
 
@@ -1564,9 +1565,7 @@ int Game::checkcollide(XYZ startpoint,XYZ endpoint,int what){
 
 void	Game::Setenvironment(int which)
 {
-	LOGFUNC;
-
-	LOG(" Setting environment...");
+	LOG->LOG(" Setting environment...");
 
 	float temptexdetail;
 	environment=which;
@@ -1802,9 +1801,7 @@ void	Game::Loadlevel(char *name){
 
 	float headprop,legprop,armprop,bodyprop;
 
-	LOGFUNC;
-
-	LOG(std::string("Loading level...") + name);
+	LOG->LOG("Loading level... %s", name);
 
 	if(!gameon)visibleloading=1;
 
@@ -2514,7 +2511,7 @@ void	Game::Loadlevel(char *name){
 			OPENAL_StopSound(i);
 		}
 */
-		LOG("Starting background music...");
+		LOG->LOG("Starting background music...");
 
 		OPENAL_StopSound(OPENAL_ALL);
 		if(environment==snowyenvironment)
