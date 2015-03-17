@@ -22,8 +22,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef _MACCOMPATIBLITY_H_
 #define _MACCOMPATIBLITY_H_
 
-#if !PLATFORM_MACOSX
-
 #include <stdio.h>
 #include <float.h>
 #include <math.h>
@@ -81,9 +79,6 @@ Duration AbsoluteDeltaToDuration( AbsoluteTime& a, AbsoluteTime& b);
 #include <stdint.h>
 
 
-// fix file names to use '/' instead of ':'
-char* ConvertFileName( const char* orgfilename, const char *mode = "rb" );
-
 /*
 inline float abs( float f)
 {
@@ -105,7 +100,6 @@ __forceinline long long longlongabs( long long f)
 		return -f;
 	return f;
 }
-#endif
 #endif
 
 

@@ -1724,7 +1724,7 @@ save_png_done:
     if (fp)
         fclose(fp);
     if (!retval)
-        unlink(ConvertFileName(file_name));
+        unlink(locateDataFile(file_name).c_str());
     return retval;
 }
 

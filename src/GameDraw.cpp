@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Game.h"
 #include "openal_wrapper.h"
+#include "FileIO.h"
 
 using namespace std;
 
@@ -2253,29 +2254,29 @@ int Game::DrawGLScene(void)
 		if(texdetail>2)texdetail=2;
 		if(mainmenu!=oldmainmenu&&oldmainmenu!=0){
 			if(mainmenu==1){
-				LoadTexture(":Data:Textures:Newgame.png",&Mainmenuitems[1],0,0);
-				LoadTexture(":Data:Textures:Quit.png",&Mainmenuitems[3],0,0);
+				LoadTexture("Textures/Newgame.png",&Mainmenuitems[1],0,0);
+				LoadTexture("Textures/Quit.png",&Mainmenuitems[3],0,0);
 				/*if(oldmainmenu==1||oldmainmenu==0){
-				LoadTexture(":Data:Textures:World.png",&Mainmenuitems[7],0,0);
-				LoadTexture(":Data:Textures:Options.png",&Mainmenuitems[2],0,0);
-				LoadTexture(":Data:Textures:Lugaru.png",&Mainmenuitems[0],0,0);
+				LoadTexture("Textures/World.png",&Mainmenuitems[7],0,0);
+				LoadTexture("Textures/Options.png",&Mainmenuitems[2],0,0);
+				LoadTexture("Textures/Lugaru.png",&Mainmenuitems[0],0,0);
 				loaddistrib=0;
 				}*/
 			}
 			if(mainmenu==2){
-				LoadTexture(":Data:Textures:Resume.png",&Mainmenuitems[1],0,0);
-				LoadTexture(":Data:Textures:Endgame.png",&Mainmenuitems[3],0,0);
+				LoadTexture("Textures/Resume.png",&Mainmenuitems[1],0,0);
+				LoadTexture("Textures/Endgame.png",&Mainmenuitems[3],0,0);
 				/*if(oldmainmenu==2||oldmainmenu==0){
-				LoadTexture(":Data:Textures:World.png",&Mainmenuitems[7],0,0);
-				LoadTexture(":Data:Textures:Options.png",&Mainmenuitems[2],0,0);
-				LoadTexture(":Data:Textures:Lugaru.png",&Mainmenuitems[0],0,0);
+				LoadTexture("Textures/World.png",&Mainmenuitems[7],0,0);
+				LoadTexture("Textures/Options.png",&Mainmenuitems[2],0,0);
+				LoadTexture("Textures/Lugaru.png",&Mainmenuitems[0],0,0);
 				loaddistrib=0;
 				}*/
 			}
 		}
 		if(lastcheck>.5||oldmainmenu!=mainmenu){
 			if(mainmenu==5){
-				ifstream ipstream(ConvertFileName(":Data:Campaigns:main.txt"));
+				ifstream ipstream(locateDataFile("Campaigns/main.txt").c_str());
 				//campaignnumlevels=0;
 				//accountcampaignchoicesmade[accountactive]=0;
 				ipstream.ignore(256,':');

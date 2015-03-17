@@ -27,6 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Game.h"
 #include "openal_wrapper.h"
 #include "Log.h"
+#include "FileIO.h"
 
 using namespace std;
 
@@ -292,13 +293,13 @@ static void ch_save(Game *game, const char *args)
   char buf[64];
   int i, j, k, l, m, templength;
   float headprop, bodyprop, armprop, legprop;
-  snprintf(buf, 63, ":Data:Maps:%s", args);
+  snprintf(buf, 63, "Maps/%s", args);
 
 
   int mapvers = 12;;
 
-  FILE			*tfile;
-  tfile=fopen( ConvertFileName(buf), "wb" );
+  FILE *tfile;
+  tfile = fopen(locateDataFile(buf).c_str(), "wb");
   fpackf(tfile, "Bi", mapvers);
   fpackf(tfile, "Bi", maptype);
   fpackf(tfile, "Bi", hostile);
@@ -848,14 +849,14 @@ static void ch_dialogue(Game *game, const char *args)
   char buf1[32], buf2[64];
 
   sscanf(args, "%d %31s", &dlg, buf1);
-  snprintf(buf2, 63, ":Data:Dialogues:%s.txt", buf1);
+  snprintf(buf2, 63, "Dialogues/%s.txt", buf1);
 
   dialoguetype[numdialogues] = dlg;
 
   memset(dialoguetext[numdialogues], 0, sizeof(dialoguetext[numdialogues]));
   memset(dialoguename[numdialogues], 0, sizeof(dialoguename[numdialogues]));
 
-  ifstream ipstream(ConvertFileName(buf2));
+  ifstream ipstream(locateDataFile(buf2).c_str());
   ipstream.ignore(256,':');
   ipstream >> numdialogueboxes[numdialogues];
   for(i=0;i<numdialogueboxes[numdialogues];i++){
@@ -899,12 +900,12 @@ static void ch_fixdialogue(Game *game, const char *args)
   int whichdi, i, j;
 
   sscanf(args, "%d %31s", &whichdi, buf1);
-  snprintf(buf2, 63, ":Data:Dialogues:%s.txt", buf1);
+  snprintf(buf2, 63, "Dialogues/%s.txt", buf1);
 
   memset(dialoguetext[whichdi], 0, sizeof(dialoguetext[whichdi]));
   memset(dialoguename[whichdi], 0, sizeof(dialoguename[whichdi]));
 
-  ifstream ipstream(ConvertFileName(buf2));
+  ifstream ipstream(locateDataFile(buf2).c_str());
   ipstream.ignore(256,':');
   ipstream >> numdialogueboxes[whichdi];
   for(i=0;i<numdialogueboxes[whichdi];i++){
@@ -1602,18 +1603,18 @@ void	Game::Setenvironment(int which)
 		OPENAL_Sample_Free(samp[footstepsound2]);
 		OPENAL_Sample_Free(samp[footstepsound3]);
 		OPENAL_Sample_Free(samp[footstepsound4]);
-		samp[footstepsound] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepsnow1.ogg"), OPENAL_HW3D, 0, 0);
-		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepsnow2.ogg"), OPENAL_HW3D, 0, 0);
-		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepstone1.ogg"), OPENAL_HW3D, 0, 0);
-		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepstone2.ogg"), OPENAL_HW3D, 0, 0);
+		samp[footstepsound]  = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow2.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepstone1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepstone2.ogg").c_str(), OPENAL_HW3D, 0, 0);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound2], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound3], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound4], 4.0f, 1000.0f);
 
-		LoadTexture(":Data:Textures:snow.jpg",&terraintexture,1,0);
+		LoadTexture("Textures/snow.jpg",&terraintexture,1,0);
 
-		LoadTexture(":Data:Textures:rock.jpg",&terraintexture2,1,0);
+		LoadTexture("Textures/rock.jpg",&terraintexture2,1,0);
 
 		//LoadTexture(":Data:Textures:detailgrain.png",&terraintexture3,1);
 
@@ -1622,14 +1623,16 @@ void	Game::Setenvironment(int which)
 
 		temptexdetail=texdetail;
 		if(texdetail>1)texdetail=4;
-		skybox.load(	":Data:Textures:Skybox(snow):Front.jpg",
-			":Data:Textures:Skybox(snow):Left.jpg",
-			":Data:Textures:Skybox(snow):Back.jpg",
-			":Data:Textures:Skybox(snow):Right.jpg",
-			":Data:Textures:Skybox(snow):Up.jpg",
-			":Data:Textures:Skybox(snow):Down.jpg",
-			":Data:Textures:Skybox(snow):Cloud.jpg",
-			":Data:Textures:Skybox(snow):Reflect.jpg");
+		skybox.load(
+            "Textures/Skybox(snow)/Front.jpg",
+			"Textures/Skybox(snow)/Left.jpg",
+			"Textures/Skybox(snow)/Back.jpg",
+			"Textures/Skybox(snow)/Right.jpg",
+			"Textures/Skybox(snow)/Up.jpg",
+			"Textures/Skybox(snow)/Down.jpg",
+			"Textures/Skybox(snow)/Cloud.jpg",
+			"Textures/Skybox(snow)/Reflect.jpg"
+        );
 
 
 
@@ -1639,10 +1642,10 @@ void	Game::Setenvironment(int which)
 	if(environment==desertenvironment){
 		windvector=0;
 		windvector.z=2;
-		LoadTexture(":Data:Textures:deserttree.png",&objects.treetextureptr,0,1);
-		LoadTexture(":Data:Textures:bushdesert.png",&objects.bushtextureptr,0,1);
-		LoadTexture(":Data:Textures:boulderdesert.jpg",&objects.rocktextureptr,1,0);
-		LoadTexture(":Data:Textures:desertbox.jpg",&objects.boxtextureptr,1,0);
+		LoadTexture("Textures/deserttree.png",&objects.treetextureptr,0,1);
+		LoadTexture("Textures/bushdesert.png",&objects.bushtextureptr,0,1);
+		LoadTexture("Textures/boulderdesert.jpg",&objects.rocktextureptr,1,0);
+		LoadTexture("Textures/desertbox.jpg",&objects.boxtextureptr,1,0);
 
 
 		if(ambientsound){
@@ -1656,10 +1659,10 @@ void	Game::Setenvironment(int which)
 		OPENAL_Sample_Free(samp[footstepsound2]);
 		OPENAL_Sample_Free(samp[footstepsound3]);
 		OPENAL_Sample_Free(samp[footstepsound4]);
-		samp[footstepsound] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepsnow1.ogg"), OPENAL_HW3D, 0, 0);
-		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepsnow2.ogg"), OPENAL_HW3D, 0, 0);
-		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepsnow1.ogg"), OPENAL_HW3D, 0, 0);
-		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepsnow2.ogg"), OPENAL_HW3D, 0, 0);
+		samp[footstepsound] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow2.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow2.ogg").c_str(), OPENAL_HW3D, 0, 0);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound2], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound3], 4.0f, 1000.0f);
@@ -1675,27 +1678,26 @@ void	Game::Setenvironment(int which)
 
 		temptexdetail=texdetail;
 		if(texdetail>1)texdetail=4;
-		skybox.load(	":Data:Textures:Skybox(sand):Front.jpg",
-			":Data:Textures:Skybox(sand):Left.jpg",
-			":Data:Textures:Skybox(sand):Back.jpg",
-			":Data:Textures:Skybox(sand):Right.jpg",
-			":Data:Textures:Skybox(sand):Up.jpg",
-			":Data:Textures:Skybox(sand):Down.jpg",
-			":Data:Textures:Skybox(sand):Cloud.jpg",
-			":Data:Textures:Skybox(sand):Reflect.jpg");
-
-
-
+		skybox.load(
+            "Textures/Skybox(sand):Front.jpg",
+			"Textures/Skybox(sand):Left.jpg",
+			"Textures/Skybox(sand):Back.jpg",
+			"Textures/Skybox(sand):Right.jpg",
+			"Textures/Skybox(sand):Up.jpg",
+			"Textures/Skybox(sand):Down.jpg",
+			"Textures/Skybox(sand):Cloud.jpg",
+			"Textures/Skybox(sand):Reflect.jpg"
+        );
 
 		texdetail=temptexdetail;
 	}
 	if(environment==grassyenvironment){
 		windvector=0;
 		windvector.z=2;
-		LoadTexture(":Data:Textures:tree.png",&objects.treetextureptr,0,1);
-		LoadTexture(":Data:Textures:bush.png",&objects.bushtextureptr,0,1);
-		LoadTexture(":Data:Textures:boulder.jpg",&objects.rocktextureptr,1,0);
-		LoadTexture(":Data:Textures:grassbox.jpg",&objects.boxtextureptr,1,0);
+		LoadTexture("Textures/tree.png",&objects.treetextureptr,0,1);
+		LoadTexture("Textures/bush.png",&objects.bushtextureptr,0,1);
+		LoadTexture("Textures/boulder.jpg",&objects.rocktextureptr,1,0);
+		LoadTexture("Textures/grassbox.jpg",&objects.boxtextureptr,1,0);
 
 		if(ambientsound){
 			PlayStreamEx( stream_wind, strm[stream_wind], NULL, true);
@@ -1707,69 +1709,75 @@ void	Game::Setenvironment(int which)
 		OPENAL_Sample_Free(samp[footstepsound2]);
 		OPENAL_Sample_Free(samp[footstepsound3]);
 		OPENAL_Sample_Free(samp[footstepsound4]);
-		samp[footstepsound] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepgrass1.ogg"), OPENAL_HW3D, 0, 0);
-		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepgrass2.ogg"), OPENAL_HW3D, 0, 0);
-		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepstone1.ogg"), OPENAL_HW3D, 0, 0);
-		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, ConvertFileName(":Data:Sounds:footstepstone2.ogg"), OPENAL_HW3D, 0, 0);
+		samp[footstepsound] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepgrass1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepgrass2.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepstone1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepstone2.ogg").c_str(), OPENAL_HW3D, 0, 0);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound2], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound3], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound4], 4.0f, 1000.0f);
 
-		LoadTexture(":Data:Textures:grassdirt.jpg",&terraintexture,1,0);
+		LoadTexture("Textures/grassdirt.jpg",&terraintexture,1,0);
 
-		LoadTexture(":Data:Textures:mossrock.jpg",&terraintexture2,1,0);
+		LoadTexture("Textures/mossrock.jpg",&terraintexture2,1,0);
 
-		//LoadTexture(":Data:Textures:detail.png",&terraintexture3,1);
+		//LoadTexture("Textures/detail.png",&terraintexture3,1);
 
 
 
 		temptexdetail=texdetail;
-		if(texdetail>1)texdetail=4;
-		skybox.load(	":Data:Textures:Skybox(grass):Front.jpg",
-			":Data:Textures:Skybox(grass):Left.jpg",
-			":Data:Textures:Skybox(grass):Back.jpg",
-			":Data:Textures:Skybox(grass):Right.jpg",
-			":Data:Textures:Skybox(grass):Up.jpg",
-			":Data:Textures:Skybox(grass):Down.jpg",
-			":Data:Textures:Skybox(grass):Cloud.jpg",
-			":Data:Textures:Skybox(grass):Reflect.jpg");
-
-
+		if(texdetail>1) texdetail=4;
+		skybox.load(
+            "Textures/Skybox(grass)/Front.jpg",
+			"Textures/Skybox(grass)/Left.jpg",
+			"Textures/Skybox(grass)/Back.jpg",
+			"Textures/Skybox(grass)/Right.jpg",
+			"Textures/Skybox(grass)/Up.jpg",
+			"Textures/Skybox(grass)/Down.jpg",
+			"Textures/Skybox(grass)/Cloud.jpg",
+			"Textures/Skybox(grass)/Reflect.jpg"
+        );
 
 		texdetail=temptexdetail;
 	}
 	temptexdetail=texdetail;
 	texdetail=1;
-	terrain.load(":Data:Textures:heightmap.png");
+	terrain.load("Textures/heightmap.png");
 
 	texdetail=temptexdetail;
 }
 
 
-void	Game::Loadlevel(int which){
-	stealthloading=0;
+void
+Game::Loadlevel(int which) {
+	stealthloading = 0;
 
-	if(which==0)Loadlevel((char *)":Data:Maps:map1");
-	else if(which==1)Loadlevel((char *)":Data:Maps:map2");
-	else if(which==2)Loadlevel((char *)":Data:Maps:map3");
-	else if(which==3)Loadlevel((char *)":Data:Maps:map4");
-	else if(which==4)Loadlevel((char *)":Data:Maps:map5");
-	else if(which==5)Loadlevel((char *)":Data:Maps:map6");
-	else if(which==6)Loadlevel((char *)":Data:Maps:map7");
-	else if(which==7)Loadlevel((char *)":Data:Maps:map8");
-	else if(which==8)Loadlevel((char *)":Data:Maps:map9");
-	else if(which==9)Loadlevel((char *)":Data:Maps:map10");
-	else if(which==10)Loadlevel((char *)":Data:Maps:map11");
-	else if(which==11)Loadlevel((char *)":Data:Maps:map12");
-	else if(which==12)Loadlevel((char *)":Data:Maps:map13");
-	else if(which==13)Loadlevel((char *)":Data:Maps:map14");
-	else if(which==14)Loadlevel((char *)":Data:Maps:map15");
-	else if(which==15)Loadlevel((char *)":Data:Maps:map16");
-	else if(which==-1){tutoriallevel=-1;Loadlevel((char *)":Data:Maps:tutorial");}
-	else Loadlevel((char *)":Data:Maps:mapsave");
-
-	whichlevel=which;
+    switch (which) {
+        case -1:
+            tutoriallevel = -1;
+            Loadlevel((char *) "Maps/tutorial");
+            break;
+        case 0: Loadlevel((char *) "Maps/map1"); break;
+        case 1: Loadlevel((char *) "Maps/map2"); break;
+        case 2: Loadlevel((char *) "Maps/map3"); break;
+        case 3: Loadlevel((char *) "Maps/map4"); break;
+        case 4: Loadlevel((char *) "Maps/map5"); break;
+        case 5: Loadlevel((char *) "Maps/map6"); break;
+        case 6: Loadlevel((char *) "Maps/map7"); break;
+        case 7: Loadlevel((char *) "Maps/map8"); break;
+        case 8: Loadlevel((char *) "Maps/map9"); break;
+        case 9: Loadlevel((char *) "Maps/map10"); break;
+        case 10: Loadlevel((char *) "Maps/map11"); break;
+        case 11: Loadlevel((char *) "Maps/map12"); break;
+        case 12: Loadlevel((char *) "Maps/map13"); break;
+        case 13: Loadlevel((char *) "Maps/map14"); break;
+        case 14: Loadlevel((char *) "Maps/map15"); break;
+        case 15: Loadlevel((char *) "Maps/map16"); break;
+        default: Loadlevel((char *) "Maps/mapsave"); break;
+    }
+	
+    whichlevel = which;
 }
 
 /*char * Game::MD5_string (unsigned char *string){
@@ -1792,7 +1800,8 @@ return context.hex_digest();
 
 
 
-void	Game::Loadlevel(char *name){
+void
+Game::Loadlevel(char *name) {
 	int i,j,k,l,m;
 	static int oldlevel;
 	int templength;
@@ -1827,39 +1836,36 @@ void	Game::Loadlevel(char *name){
 	OPENAL_SetPaused(channels[whooshsound], true);
 	OPENAL_SetPaused(channels[stream_firesound], true);
 
-	// Change the map filename into something that is os specific
-	char *FixedFN = ConvertFileName(name);
+    std::string fileName = locateDataFile(name);
 
 	int mapvers;
-	FILE			*tfile;
-	tfile=fopen( FixedFN, "rb" );
-	if(tfile)
-	{
+	FILE *tfile;
+	tfile = fopen(fileName.c_str(), "rb");
+
+	if (tfile) {
 		OPENAL_SetPaused(channels[stream_firesound], true);
 
+		scoreadded  = 0;
+		windialogue = 0;
 
-		scoreadded=0;
-		windialogue=0;
+		hostiletime = 0;
 
-		hostiletime=0;
-
-		won=0;
+		won = 0;
 
 		//campaign=0;
-		animation[bounceidleanim].Load((char *)":Data:Animations:Idle",middleheight,neutral);
+		animation[bounceidleanim].Load((char *)"Animations/Idle", middleheight, neutral);
 
-		numdialogues=0;
+		numdialogues = 0;
 
-		for(i=0;i<20;i++)
-		{
-			dialoguegonethrough[i]=0;
+		for(i = 0; i < 20; i++) {
+			dialoguegonethrough[i] = 0;
 		}
 
-		indialogue=-1;
-		cameramode=0;
+		indialogue = -1;
+		cameramode = 0;
 
-		damagedealt=0;
-		damagetaken=0;
+		damagedealt = 0;
+		damagetaken = 0;
 
 		if(accountactive!=-1)difficulty=accountdifficulty[accountactive];
 
@@ -2312,21 +2318,58 @@ void	Game::Loadlevel(char *name){
 			//if(rand()%2==0)player[i].creature=wolftype;
 			//else player[i].creature=rabbittype;
 			if(i==0&&mapvers<9)player[i].creature=rabbittype;
-			if(player[i].creature!=wolftype)player[i].skeleton.Load((char *)":Data:Skeleton:Basic Figure",(char *)":Data:Skeleton:Basic Figurelow",(char *)":Data:Skeleton:Rabbitbelt",(char *)":Data:Models:Body.solid",(char *)":Data:Models:Body2.solid",(char *)":Data:Models:Body3.solid",(char *)":Data:Models:Body4.solid",(char *)":Data:Models:Body5.solid",(char *)":Data:Models:Body6.solid",(char *)":Data:Models:Body7.solid",(char *)":Data:Models:Bodylow.solid",(char *)":Data:Models:Belt.solid",0);
+			if(player[i].creature != wolftype)
+                player[i].skeleton.Load(
+                        (char *) "Skeleton/Basic Figure",
+                        (char *) "Skeleton/Basic Figurelow",
+                        (char *) "Skeleton/Rabbitbelt",
+                        (char *) "Models/Body.solid",
+                        (char *) "Models/Body2.solid",
+                        (char *) "Models/Body3.solid",
+                        (char *) "Models/Body4.solid",
+                        (char *) "Models/Body5.solid",
+                        (char *) "Models/Body6.solid",
+                        (char *) "Models/Body7.solid",
+                        (char *) "Models/Bodylow.solid",
+                        (char *) "Models/Belt.solid", 0);
 			else
 			{
-				if(player[i].creature!=wolftype){
-					player[i].skeleton.Load((char *)":Data:Skeleton:Basic Figure",(char *)":Data:Skeleton:Basic Figurelow",(char *)":Data:Skeleton:Rabbitbelt",(char *)":Data:Models:Body.solid",(char *)":Data:Models:Body2.solid",(char *)":Data:Models:Body3.solid",(char *)":Data:Models:Body4.solid",(char *)":Data:Models:Body5.solid",(char *)":Data:Models:Body6.solid",(char *)":Data:Models:Body7.solid",(char *)":Data:Models:Bodylow.solid",(char *)":Data:Models:Belt.solid",1);
-					LoadTexture(":Data:Textures:Belt.png",&player[i].skeleton.drawmodelclothes.textureptr,1,1);
+				if(player[i].creature != wolftype) {
+					player[i].skeleton.Load(
+                            (char *) "Skeleton/Basic Figure",
+                            (char *) "Skeleton/Basic Figurelow",
+                            (char *) "Skeleton/Rabbitbelt",
+                            (char *) "Models/Body.solid",
+                            (char *) "Models/Body2.solid",
+                            (char *) "Models/Body3.solid",
+                            (char *) "Models/Body4.solid",
+                            (char *) "Models/Body5.solid",
+                            (char *) "Models/Body6.solid",
+                            (char *) "Models/Body7.solid",
+                            (char *) "Models/Bodylow.solid",
+                            (char *) "Models/Belt.solid", 1);
+					LoadTexture("Textures/Belt.png", &player[i].skeleton.drawmodelclothes.textureptr, 1, 1);
 				}
-				if(player[i].creature==wolftype){
-					player[i].skeleton.Load((char *)":Data:Skeleton:Basic Figure Wolf",(char *)":Data:Skeleton:Basic Figure Wolf Low",(char *)":Data:Skeleton:Rabbitbelt",(char *)":Data:Models:Wolf.solid",(char *)":Data:Models:Wolf2.solid",(char *)":Data:Models:Wolf3.solid",(char *)":Data:Models:Wolf4.solid",(char *)":Data:Models:Wolf5.solid",(char *)":Data:Models:Wolf6.solid",(char *)":Data:Models:Wolf7.solid",(char *)":Data:Models:Wolflow.solid",(char *)":Data:Models:Belt.solid",0);
+				if(player[i].creature ==wolftype) {
+					player[i].skeleton.Load(
+                            (char *) "Skeleton/Basic Figure Wolf",
+                            (char *) "Skeleton/Basic Figure Wolf Low",
+                            (char *) "Skeleton/Rabbitbelt",
+                            (char *) "Models/Wolf.solid",
+                            (char *) "Models/Wolf2.solid",
+                            (char *) "Models/Wolf3.solid",
+                            (char *) "Models/Wolf4.solid",
+                            (char *) "Models/Wolf5.solid",
+                            (char *) "Models/Wolf6.solid",
+                            (char *) "Models/Wolf7.solid",
+                            (char *) "Models/Wolflow.solid",
+                            (char *) "Models/Belt.solid", 0);
 				}
 			}
 
 
 			int texsize;
-			texsize=512*512*3/texdetail/texdetail;
+			texsize = 512 * 512 * 3 / texdetail / texdetail;
 			//if(!player[i].loaded)player[i].skeleton.skinText = new GLubyte[texsize];
 			//player[i].skeleton.skinText.resize(texsize);
 
@@ -2743,7 +2786,7 @@ void	Game::Tick()
 				if(newscreenwidth<0)newscreenwidth=screenwidth;
 				if(newscreenheight<0)newscreenheight=screenheight;
 
-				ofstream opstream(ConvertFileName(":Data:config.txt", "w"));
+				ofstream opstream(locateConfigFile("config.txt").c_str(), ios::out);
 				opstream << "Screenwidth:\n";
 				opstream << newscreenwidth;
 				opstream << "\nScreenheight:\n";
@@ -3138,7 +3181,7 @@ void	Game::Tick()
 				if(newscreenheight<0)newscreenheight=screenheight;
 
 
-				ofstream opstream(ConvertFileName(":Data:config.txt", "w"));
+				ofstream opstream(locateConfigFile("config.txt").c_str(), ios::out);
 				opstream << "Screenwidth:\n";
 				opstream << newscreenwidth;
 				opstream << "\nScreenheight:\n";
@@ -3766,7 +3809,7 @@ void	Game::Tick()
 				if(newscreenwidth<0)newscreenwidth=screenwidth;
 				if(newscreenheight<0)newscreenheight=screenheight;
 
-				ofstream opstream(ConvertFileName(":Data:config.txt", "w"));
+				ofstream opstream(locateConfigFile("config.txt").c_str());
 				opstream << "Screenwidth:\n";
 				opstream << newscreenwidth;
 				opstream << "\nScreenheight:\n";
@@ -4201,7 +4244,7 @@ void	Game::Tick()
 				if(newscreenwidth<0)newscreenwidth=screenwidth;
 				if(newscreenheight<0)newscreenheight=screenheight;
 
-				ofstream opstream(ConvertFileName(":Data:config.txt", "w"));
+				ofstream opstream(locateConfigFile("config.txt").c_str());
 				opstream << "Screenwidth:\n";
 				opstream << newscreenwidth;
 				opstream << "\nScreenheight:\n";
@@ -9801,7 +9844,7 @@ void	Game::TickOnceAfter(){
 
 								startbonustotal=0;
 
-								ifstream ipstream(ConvertFileName(":Data:Campaigns:main.txt"));
+								ifstream ipstream(locateDataFile("Campaigns/main.txt").c_str());
 								//campaignnumlevels=0;
 								//accountcampaignchoicesmade[accountactive]=0;
 								ipstream.ignore(256,':');
