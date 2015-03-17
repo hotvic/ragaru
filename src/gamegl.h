@@ -30,20 +30,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <map>
 #include <string>
 
-#ifdef WIN32
-  #define WIN32_LEAN_AND_MEAN
-  #define Polygon WinPolygon
-  #include <windows.h>
-  #undef Polygon
-#endif
-
 #define GL_GLEXT_PROTOTYPES 1
 #include "GL/gl.h"
 #include "GL/glu.h"
 #include "GL/glext.h"
 #include "MacCompatibility.h"
 
-#if !PLATFORM_MACOSX
 struct RGBColor
 {
 	unsigned short red;
@@ -52,13 +44,8 @@ struct RGBColor
 };
 typedef struct RGBColor RGBColor;
 typedef RGBColor * RGBColorPtr;
-#endif
 
 using namespace std;
-
-/* !!! FIXME: until we replace logger better. --ryan. */
-#define LOGFUNC
-void LOG(const std::string &fmt, ...);
 
 #endif
 

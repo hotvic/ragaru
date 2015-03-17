@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "Game.h"
 #include "Models.h"
-//#include "altivec.h"
+#include "Log.h"
 
 extern float multiplier;
 extern float viewdistance;
@@ -504,9 +504,7 @@ bool Model::load(const char *filename,bool texture )
 	FILE			*tfile;
 	long				i;
 
-	LOGFUNC;
-
-	LOG(std::string("Loading model...") + filename);
+	LOG->LOG("Loading model... %s", filename);
 
 	if(visibleloading){
 		loadscreencolor=2;
@@ -592,12 +590,10 @@ bool Model::loaddecal(const char *filename,bool texture )
 	FILE			*tfile;
 	long				i,j;
 
-	LOGFUNC;
-
 	// Changing the filename so that its more os specific
 	char * FixedFN = ConvertFileName(filename);
 
-	LOG(std::string("Loading decal...") + FixedFN);
+	LOG->LOG("Loading decal... %s", FixedFN);
 
 	int oldvertexNum,oldTriangleNum;
 	oldvertexNum=vertexNum;
@@ -703,9 +699,7 @@ bool Model::loadraw(char *filename )
 	FILE			*tfile;
 	long				i;
 
-	LOGFUNC;
-
-	LOG(std::string("Loading raw...") + filename);
+	LOG->LOG("Loading raw... %s", filename);
 
 	int oldvertexNum,oldTriangleNum;
 	oldvertexNum=vertexNum;

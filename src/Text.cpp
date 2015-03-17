@@ -22,15 +22,16 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 /**> HEADER FILES <**/
 #include "Text.h"
 #include "Game.h"
+#include "Log.h"
+
+
 extern TGAImageRec texture;
 
 void Text::LoadFontTexture(const char *fileName)
 {
 	GLuint		type;
 
-	LOGFUNC;
-
-	LOG(std::string("Loading font texture...") + fileName);
+	LOG->LOG("Loading font texture... %s", fileName);
 
 	Game::LoadTexture(fileName, &FontTexture, false, false);
 /*
@@ -74,11 +75,9 @@ void Text::BuildFont()								// Build Our Font Display List
 	float	cy;											// Holds Our Y Character Coord
 	int loop;
 
-	LOGFUNC;
-
 	if (base)
 	{
-		LOG("Font already created...");
+		LOG->LOG("Font already created...");
 		return;
 	}
 

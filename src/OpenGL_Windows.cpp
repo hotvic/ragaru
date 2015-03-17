@@ -20,19 +20,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 
-#ifdef WIN32
-#define UINT8 WIN32API_UINT8
-#define UINT16 WIN32API_UINT16
-#define boolean WIN32API_boolean
-#include <windows.h>
-#undef UINT8
-#undef UINT16
-#undef boolean
-#endif
-
-
-
 #include "Game.h"
+#include "FileIO.h"
 extern "C" {
     #include <zlib.h>
 	#include <png.h>
@@ -110,6 +99,7 @@ extern float volume;
 #include <iostream>
 #include "gamegl.h"
 #include "MacCompatibility.h"
+#include "Log.h"
 
 
 #ifdef WIN32
@@ -135,6 +125,7 @@ static SDL_Rect *hardcoded_resolutions[] = {
 
 
 unsigned int resolutionDepths[8][2] = {0};
+Lugaru::Log *LOG;
 
 bool selectDetail(int & width, int & height, int & bpp, int & detail);
 int closestResolution(int width, int height);
@@ -564,10 +555,8 @@ Boolean SetUp (Game & game)
 {
 	char string[10];
 
-	LOGFUNC;
-
 	osx = 0;
-	ifstream ipstream(ConvertFileName(":Data:config.txt"), std::ios::in /*| std::ios::nocreate*/);
+	ifstream ipstream(locateConfigFile("config.txt").c_str(), std::ios::in /*| std::ios::nocreate*/);
 	detail=1;
 	ismotionblur=0;
 	usermousesensitivity=1;
@@ -617,7 +606,7 @@ Boolean SetUp (Game & game)
 	selectDetail(kContextWidth, kContextHeight, kBitsPerPixel, detail);
 
 	if(!ipstream) {
-		ofstream opstream(ConvertFileName(":Data:config.txt", "w"));
+		ofstream opstream(locateConfigFile("config.txt").c_str(), ios::out);
 		opstream << "Screenwidth:\n";
 		opstream << kContextWidth;
 		opstream << "\nScreenheight:\n";
@@ -1162,13 +1151,6 @@ void DoUpdate (Game & game)
 
 void CleanUp (void)
 {
-	LOGFUNC;
-
-//	game.Dispose();
-
-
-
-
     SDL_Quit();
     #define GL_FUNC(ret,fn,params,call,rt) p##fn = NULL;
     #include "glstubs.h"
@@ -1293,19 +1275,6 @@ static inline void chdirToAppPath(const char *argv0)
     char *dir = calcBaseDir(argv0);
     if (dir)
     {
-        #if (defined(__APPLE__) && defined(__MACH__))
-        // Chop off /Contents/MacOS if it's at the end of the string, so we
-        //  land in the base of the app bundle.
-        const size_t len = strlen(dir);
-        const char *bundledirs = "/Contents/MacOS";
-        const size_t bundledirslen = strlen(bundledirs);
-        if (len > bundledirslen)
-        {
-            char *ptr = (dir + len) - bundledirslen;
-            if (strcasecmp(ptr, bundledirs) == 0)
-                *ptr = '\0';
-        }
-        #endif
         chdir(dir);
         free(dir);
     }
@@ -1315,6 +1284,8 @@ static inline void chdirToAppPath(const char *argv0)
 
 int main(int argc, char **argv)
 {
+    LOG = new Lugaru::Log(true, true);
+
 	memset( &g_theKeys, 0, sizeof( KeyMap));
 
     initSDLKeyTable();
@@ -1402,8 +1373,6 @@ int main(int argc, char **argv)
 
 		std::string e = "Caught exception: ";
 		e += error.what();
-
-		LOG(e);
 
 		MessageBox(g_windowHandle, error.what(), "ERROR", MB_OK | MB_ICONEXCLAMATION);
 	}
