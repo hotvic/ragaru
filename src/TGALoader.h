@@ -22,25 +22,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef	_TGA_LOADER_H_
 #define	_TGA_LOADER_H_
 
-#ifdef _MSC_VER
-#pragma once
-#endif
-
-
-/**> HEADER FILES <**/
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#ifdef WIN32
-#define WIN32_LEAN_AND_MEAN
-#define Polygon WinPolygon
-#include <windows.h>
-#undef Polygon
-#include "GL/gl.h"
-#else
 #include "gamegl.h"
-//	#include "MoreFilesX.h"
-#endif
 
 //#include <stdbool.h>
 //#include <QuickTime.h>
@@ -54,11 +39,7 @@ typedef struct TGAImageRec
 	GLuint	sizeY;
 }	TGAImageRec;
 
-bool upload_image(const unsigned char* filePath, bool hasalpha);
-
-/**> FUNCTION PROTOTYPES <**/
-TGAImageRec*	LoadTGA( char *filename );
-
+bool upload_image(const char *fileName, bool hasalpha);
 
 #endif
 

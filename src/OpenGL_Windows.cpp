@@ -907,8 +907,8 @@ Boolean SetUp (Game & game)
     }
 
     Uint32 sdlflags = SDL_OPENGL;
-    if (!cmdline("windowed"))
-        sdlflags |= SDL_FULLSCREEN;
+    //if (!cmdline("windowed"))
+    //    sdlflags |= SDL_FULLSCREEN;
 
     SDL_WM_SetCaption("Lugaru", "Lugaru");
 
@@ -949,8 +949,8 @@ Boolean SetUp (Game & game)
         return false;
     }
 
-    if (!cmdline("nomousegrab"))
-        SDL_WM_GrabInput(SDL_GRAB_ON);
+    //if (!cmdline("nomousegrab"))
+    //    SDL_WM_GrabInput(SDL_GRAB_ON);
 
 
 	glClear( GL_COLOR_BUFFER_BIT );
@@ -1315,18 +1315,6 @@ static inline void chdirToAppPath(const char *argv0)
 
 int main(int argc, char **argv)
 {
-#ifndef __MINGW32__
-    _argc = argc;
-    _argv = argv;
-#endif
-
-    // !!! FIXME: we could use a Win32 API for this.  --ryan.
-#ifndef WIN32
-    chdirToAppPath(argv[0]);
-#endif
-
-	LOGFUNC;
-
 	memset( &g_theKeys, 0, sizeof( KeyMap));
 
     initSDLKeyTable();
@@ -1499,7 +1487,7 @@ int main(int argc, char **argv)
 	}
 
 
-	bool LoadImage(const char * fname, TGAImageRec & tex)
+	bool LoadImage(const char *fname, TGAImageRec & tex)
 	{
 		bool res = true;
 

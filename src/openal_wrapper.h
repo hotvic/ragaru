@@ -8,6 +8,7 @@
 #include <vorbis/vorbisfile.h>
 
 #include "MacCompatibility.h"
+#include <string>
 
 
 typedef struct OPENAL_SAMPLE    OPENAL_SAMPLE;
@@ -54,12 +55,13 @@ AL_API signed char OPENAL_SetVolume(int channel, int vol);
 AL_API signed char OPENAL_SetPaused(int channel, signed char paused);
 AL_API void OPENAL_SetSFXMasterVolume(int volume);
 AL_API signed char OPENAL_StopSound(int channel);
-AL_API OPENAL_STREAM *OPENAL_Stream_Open(const char *name_or_data, unsigned int mode, int offset, int length);
+AL_API OPENAL_STREAM *OPENAL_Stream_Open(std::string name, unsigned int mode, int offset, int length);
 AL_API void OPENAL_Stream_Close(OPENAL_STREAM *stream);
 AL_API OPENAL_SAMPLE *OPENAL_Stream_GetSample(OPENAL_STREAM *stream);
 AL_API int OPENAL_Stream_PlayEx(int channel, OPENAL_STREAM *stream, OPENAL_DSPUNIT *dsp, signed char startpaused);
 AL_API signed char OPENAL_Stream_Stop(OPENAL_STREAM *stream);
 AL_API signed char OPENAL_Stream_SetMode(OPENAL_STREAM *stream, unsigned int mode);
+AL_API OPENAL_SAMPLE *OPENAL_Sample_Open(std::string name, unsigned int mode, int offset, int length);
 AL_API void OPENAL_Update();
 AL_API signed char OPENAL_SetOutput(int outputtype);
 
