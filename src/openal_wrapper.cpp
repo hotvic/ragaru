@@ -568,9 +568,18 @@ AL_API signed char OPENAL_StopSound(int channel)
     return true;
 }
 
-AL_API OPENAL_STREAM *OPENAL_Stream_Open(const char *name_or_data, unsigned int mode, int offset, int length)
+AL_API OPENAL_STREAM *OPENAL_Stream_Open(std::string name, unsigned int mode, int offset, int length)
 {
-    return (OPENAL_STREAM *) OPENAL_Sample_Load(OPENAL_FREE, name_or_data, mode, offset, length);
+    const char *fileName = (const char*) name.c_str();
+
+    return (OPENAL_STREAM *) OPENAL_Sample_Load(OPENAL_FREE, fileName, mode, offset, length);
+}
+
+AL_API OPENAL_SAMPLE *OPENAL_Sample_Open(std::string name, unsigned int mode, int offset, int length)
+{
+    const char *fileName = (const char*) name.c_str();
+
+    return OPENAL_Sample_Load(OPENAL_FREE, fileName, mode, offset, length);
 }
 
 AL_API void OPENAL_Stream_Close(OPENAL_STREAM *stream)

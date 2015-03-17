@@ -67,7 +67,7 @@ static AppTime g_appTime;
 void CopyCStringToPascal( const char* src, unsigned char dst[256])
 {
 	int len = strlen( src);
-	dst[ 0] = len;
+	dst[0] = len;
 	memcpy( dst + 1, src, len);
 }
 
@@ -136,6 +136,7 @@ Duration AbsoluteDeltaToDuration( AbsoluteTime& a, AbsoluteTime& b)
 #include <fcntl.h>
 #include <unistd.h>
 #include <dirent.h>
+#include <stdio.h>
 
 // some but not all of this is code from PhysicsFS: http://icculus.org/physfs/
 //  the zlib license on physfs allows this cut-and-pasting.
@@ -268,9 +269,9 @@ char* ConvertFileName( const char* orgfilename, const char *mode)
         return g_filename;
 
 	// translate filename into proper path name
-	if (orgfilename[ 0] == ':')
+	if (orgfilename[0] == ':')
 		orgfilename++;
-	strcpy( g_filename, orgfilename);
+	strcpy(g_filename, orgfilename);
 
 	for (int n = 0; g_filename[ n]; n++)
 	{

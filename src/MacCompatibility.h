@@ -28,24 +28,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <float.h>
 #include <math.h>
 
-// stuff to make Mac code compatable with Windows/Linux/etc
-
-#if defined(WIN32) && !defined(strcasecmp)
-#define strcasecmp(a,b) stricmp(a,b)
-#endif
-
-#ifdef _MSC_VER
-// disable warnings about double to float conversions
-#pragma warning(disable:4305)
-#pragma warning(disable:4244)
-
-// disable warnings about boolean to int conversions
-#pragma warning(disable:4800)
-
-// disable warning about unreferenced local variables
-#pragma warning(disable:4101)
-#endif
-
 #ifndef __forceinline
 #  ifdef __GNUC__
 #    define __forceinline inline __attribute__((always_inline))
@@ -96,21 +78,12 @@ enum
 
 Duration AbsoluteDeltaToDuration( AbsoluteTime& a, AbsoluteTime& b);
 
-#ifdef _MSC_VER
-inline bool isnormal( double x)
-{
-	int ret = _fpclass( x);
-	return (ret == _FPCLASS_NN || ret == _FPCLASS_PN);
-}
-#else
 #include <stdint.h>
-#endif
 
 
 // fix file names to use '/' instead of ':'
 char* ConvertFileName( const char* orgfilename, const char *mode = "rb" );
 
-#define fopen( a, b) fopen(ConvertFileName(a, b), b)
 /*
 inline float abs( float f)
 {
