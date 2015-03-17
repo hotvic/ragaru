@@ -24,6 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Skeleton.h"
 #include "openal_wrapper.h"
 #include "Log.h"
+#include "FileIO.h"
 
 extern float multiplier;
 extern float gravity;
@@ -1009,17 +1010,16 @@ void Skeleton::FindRotationMuscle(int which, int animation)
 	if(!isnormal(muscles[which].rotate3))muscles[which].rotate3=0;
 }
 
-void Animation::Load(char *filename, int aheight, int aattack)
+void Animation::Load(char *filepath, int aheight, int aattack)
 {
 	static FILE *tfile;
 	static int i,j;
 	static XYZ startoffset,endoffset;
 	static int howmany;
 
-	// Changing the filename into something the OS can understand
-	char *fixedFN = ConvertFileName(filename);
+    std::string fileName = locateDataFile(filepath);
 
-	LOG->LOG("Loading animation... %s", fixedFN);
+	LOG->LOG("Loading animation... %s", fileName.c_str());
 
 	deallocate();
 
@@ -1028,8 +1028,8 @@ void Animation::Load(char *filename, int aheight, int aattack)
 
 	if(visibleloading)pgame->LoadingScreen();
 
-	tfile=fopen( fixedFN, "rb" );
-	if(tfile){
+	tfile = fopen(fileName.c_str(), "rb");
+	if(tfile) {
 		funpackf(tfile, "Bi Bi", &numframes, &joints);
 		/*
 		for(i = 0; i < joints; i++){
@@ -1203,7 +1203,7 @@ void Skeleton::Load(const char *filename,       const char *lowfilename, const c
 		drawmodelclothes.CalculateNormals(0);
 	}
 
-	tfile=fopen( ConvertFileName(filename), "rb" );
+	tfile = fopen(locateDataFile(filename).c_str(), "rb");
 	if(1){
 		funpackf(tfile, "Bi", &num_joints);
 		//joints.resize(num_joints);
@@ -1290,7 +1290,7 @@ void Skeleton::Load(const char *filename,       const char *lowfilename, const c
 	}
 	fclose(tfile);
 
-	tfile=fopen( ConvertFileName(lowfilename), "rb" );
+	tfile = fopen(locateDataFile(lowfilename).c_str(), "rb");
 	if(1){
 		lSize=sizeof(num_joints);
 		fseek ( tfile, lSize, SEEK_CUR);
@@ -1396,7 +1396,7 @@ void Skeleton::Load(const char *filename,       const char *lowfilename, const c
 	}
 
 	if(clothes){
-		tfile=fopen( ConvertFileName(clothesfilename), "rb" );
+		tfile = fopen(locateDataFile(clothesfilename).c_str(), "rb");
 		lSize=sizeof(num_joints);
 		fseek ( tfile, lSize, SEEK_CUR);
 		//joints = new Joint[num_joints];

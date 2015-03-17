@@ -22,6 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Game.h"
 #include "Models.h"
 #include "Log.h"
+#include "FileIO.h"
 
 extern float multiplier;
 extern float viewdistance;
@@ -436,7 +437,7 @@ bool Model::loadnotex(const char *filename )
 	type=notextype;
 	color=0;
 
-	tfile=fopen( ConvertFileName(filename), "rb" );
+	tfile = fopen(locateDataFile(filename).c_str(), "rb");
 	// read model settings
 
 	fseek(tfile, 0, SEEK_SET);
@@ -518,7 +519,7 @@ bool Model::load(const char *filename,bool texture )
 	type = normaltype;
 	color=0;
 
-	tfile=fopen( ConvertFileName(filename), "rb" );
+	tfile = fopen(locateDataFile(filename).c_str(), "rb" );
 	// read model settings
 
 
@@ -585,25 +586,24 @@ bool Model::load(const char *filename,bool texture )
 	return 1;
 }
 
-bool Model::loaddecal(const char *filename,bool texture )
+bool Model::loaddecal(const char *filePath, bool texture )
 {
 	FILE			*tfile;
 	long				i,j;
 
-	// Changing the filename so that its more os specific
-	char * FixedFN = ConvertFileName(filename);
+    std::string fileName = locateDataFile(filePath);
 
-	LOG->LOG("Loading decal... %s", FixedFN);
+	LOG->LOG("Loading decal... %s", fileName.c_str());
 
-	int oldvertexNum,oldTriangleNum;
-	oldvertexNum=vertexNum;
-	oldTriangleNum=TriangleNum;
+	int oldvertexNum, oldTriangleNum;
+	oldvertexNum = vertexNum;
+	oldTriangleNum = TriangleNum;
 
 	type = decalstype;
-	numdecals=0;
-	color=0;
+	numdecals = 0;
+	color = 0;
 
-	tfile=fopen( FixedFN, "rb" );
+	tfile = fopen(fileName.c_str(), "rb");
 	// read model settings
 
 
@@ -708,7 +708,7 @@ bool Model::loadraw(char *filename )
 	type = rawtype;
 	color=0;
 
-	tfile=fopen( ConvertFileName(filename), "rb" );
+	tfile = fopen(locateDataFile(filename).c_str(), "rb");
 	// read model settings
 
 
@@ -969,13 +969,7 @@ void Model::draw()
 	if(color)glInterleavedArrays( GL_T2F_C3F_V3F,8*sizeof(GLfloat),&vArray[0]);
 	glBindTexture(GL_TEXTURE_2D,(unsigned long)textureptr);
 
-#if PLATFORM_MACOSX
-	glLockArraysEXT( 0, TriangleNum*3);
-#endif
 	glDrawArrays(GL_TRIANGLES, 0, TriangleNum*3);
-#if PLATFORM_MACOSX
-	glUnlockArraysEXT();
-#endif
 
 
 	if(!color)glDisableClientState(GL_NORMAL_ARRAY);
@@ -997,15 +991,9 @@ void Model::drawdifftex(GLuint texture)
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
 	glTexParameterf( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
 
-
-#ifndef WIN32
 	glLockArraysEXT( 0, TriangleNum*3);
-#endif
 	glDrawArrays(GL_TRIANGLES, 0, TriangleNum*3);
-#ifndef WIN32
 	glUnlockArraysEXT();
-#endif
-
 
 	if(!color)glDisableClientState(GL_NORMAL_ARRAY);
 	if(color)glDisableClientState(GL_COLOR_ARRAY);
