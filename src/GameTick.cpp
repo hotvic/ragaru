@@ -222,22 +222,22 @@ extern int accountcampaignchoicesmade[10];
 extern int accountcampaignchoices[10][5000];
 
 static const char *rabbitskin[] = {
-    "Textures/Fur3.jpg",
-    "Textures/Fur.jpg",
-    "Textures/Fur2.jpg",
-    "Textures/Lynx.jpg",
-    "Textures/Otter.jpg",
-    "Textures/Opal.jpg",
-    "Textures/Sable.jpg",
-    "Textures/Chocolate.jpg",
-    "Textures/BW2.jpg",
-    "Textures/WB2.jpg"
+    "textures/fur3.jpg",
+    "textures/fur.jpg",
+    "textures/fur2.jpg",
+    "textures/lynx.jpg",
+    "textures/otter.jpg",
+    "textures/opal.jpg",
+    "textures/sable.jpg",
+    "textures/chocolate.jpg",
+    "textures/bw2.jpg",
+    "textures/wb2.jpg"
 };
 
 static const char *wolfskin[] = {
-    "Textures/Wolf.jpg",
-    "Textures/Darkwolf.jpg",
-    "Textures/Snowwolf.jpg"
+    "textures/wolf.jpg",
+    "textures/darkwolf.jpg",
+    "textures/snowwolf.jpg"
 };
 
 #define STATIC_ASSERT(x) extern int s_a_dummy[2 * (!!(x)) - 1];
@@ -466,7 +466,7 @@ static void ch_save(Game *game, const char *args)
 
 static void ch_cellar(Game *game, const char *args)
 {
-    game->LoadTextureSave("Textures/Furdarko.jpg",&player[0].skeleton.drawmodel.textureptr,1,&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
+    game->LoadTextureSave("textures/furdarko.jpg",&player[0].skeleton.drawmodel.textureptr,1,&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
 }
 
 static void ch_tint(Game *game, const char *args)
@@ -656,7 +656,7 @@ static void ch_noclothesnear(Game *game, const char *args)
 static void set_clothes(int pnum, Game *game, const char *args)
 {
   char buf[64];
-  snprintf(buf, 63, "Textures/%s.png", args);
+  snprintf(buf, 63, "textures/%s.png", args);
 
   if (!game->AddClothes(buf,0,1,&player[pnum].skeleton.skinText[pnum],&player[pnum].skeleton.skinsize))
     return;
@@ -716,7 +716,7 @@ static void ch_funnybunny(Game *game, const char *args)
             "Models/body7.solid",
 			"Models/bodylow.solid",
             "Models/Belt.solid", 1);
-  game->LoadTextureSave("Textures/fur3.jpg",&player[0].skeleton.drawmodel.textureptr,1,
+  game->LoadTextureSave("textures/fur3.jpg",&player[0].skeleton.drawmodel.textureptr,1,
 			&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
   player[0].creature=rabbittype;
   player[0].scale=.2;
@@ -741,7 +741,7 @@ static void ch_wolfie(Game *game, const char *args)
             "Models/wolf7.solid",
 			"Models/wolflow.solid",
             "Models/welt.solid", 0);
-  game->LoadTextureSave("Textures/Wolf.jpg",&player[0].skeleton.drawmodel.textureptr,1,
+  game->LoadTextureSave("textures/wolf.jpg",&player[0].skeleton.drawmodel.textureptr,1,
 			&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
   player[0].creature=wolftype;
   player[0].damagetolerance=300;
@@ -750,37 +750,37 @@ static void ch_wolfie(Game *game, const char *args)
 
 static void ch_wolf(Game *game, const char *args)
 {
-    game->LoadTextureSave("Textures/wolf.jpg",&player[0].skeleton.drawmodel.textureptr,1,
+    game->LoadTextureSave("textures/wolf.jpg",&player[0].skeleton.drawmodel.textureptr,1,
 			&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
 }
 
 static void ch_snowwolf(Game *game, const char *args)
 {
-    game->LoadTextureSave("Textures/SnowWolf.jpg",&player[0].skeleton.drawmodel.textureptr,1,
+    game->LoadTextureSave("textures/snowwolf.jpg",&player[0].skeleton.drawmodel.textureptr,1,
 			&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
 }
 
 static void ch_darkwolf(Game *game, const char *args)
 {
-    game->LoadTextureSave("Textures/DarkWolf.jpg",&player[0].skeleton.drawmodel.textureptr,1,
+    game->LoadTextureSave("textures/darkwolf.jpg",&player[0].skeleton.drawmodel.textureptr,1,
 			&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
 }
 
 static void ch_white(Game *game, const char *args)
 {
-    game->LoadTextureSave("Textures/fur.jpg",&player[0].skeleton.drawmodel.textureptr,1,
+    game->LoadTextureSave("textures/fur.jpg",&player[0].skeleton.drawmodel.textureptr,1,
 			&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
 }
 
 static void ch_brown(Game *game, const char *args)
 {
-    game->LoadTextureSave("Textures/fur3.jpg",&player[0].skeleton.drawmodel.textureptr,1,
+    game->LoadTextureSave("textures/fur3.jpg",&player[0].skeleton.drawmodel.textureptr,1,
 			&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
 }
 
 static void ch_black(Game *game, const char *args)
 {
-    game->LoadTextureSave("Textures/fur2.jpg",&player[0].skeleton.drawmodel.textureptr,1,
+    game->LoadTextureSave("textures/fur2.jpg",&player[0].skeleton.drawmodel.textureptr,1,
 			&player[0].skeleton.skinText[0],&player[0].skeleton.skinsize);
 }
 
@@ -1608,29 +1608,29 @@ void	Game::Setenvironment(int which)
 			OPENAL_SetVolume(channels[stream_wind], 256);
 		}
 
-		LoadTexture("Textures/snowtree.png",&objects.treetextureptr,0,1);
-		LoadTexture("Textures/bushsnow.png",&objects.bushtextureptr,0,1);
-		LoadTexture("Textures/bouldersnow.jpg",&objects.rocktextureptr,1,0);
-		LoadTexture("Textures/snowbox.jpg",&objects.boxtextureptr,1,0);
+		LoadTexture("textures/snowtree.png",&objects.treetextureptr,0,1);
+		LoadTexture("textures/bushsnow.png",&objects.bushtextureptr,0,1);
+		LoadTexture("textures/bouldersnow.jpg",&objects.rocktextureptr,1,0);
+		LoadTexture("textures/snowbox.jpg",&objects.boxtextureptr,1,0);
 
 		OPENAL_Sample_Free(samp[footstepsound]);
 		OPENAL_Sample_Free(samp[footstepsound2]);
 		OPENAL_Sample_Free(samp[footstepsound3]);
 		OPENAL_Sample_Free(samp[footstepsound4]);
-		samp[footstepsound]  = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow1.ogg").c_str(), OPENAL_HW3D, 0, 0);
-		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow2.ogg").c_str(), OPENAL_HW3D, 0, 0);
-		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepstone1.ogg").c_str(), OPENAL_HW3D, 0, 0);
-		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepstone2.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound]  = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepsnow1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepsnow2.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepstone1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepstone2.ogg").c_str(), OPENAL_HW3D, 0, 0);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound2], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound3], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound4], 4.0f, 1000.0f);
 
-		LoadTexture("Textures/snow.jpg",&terraintexture,1,0);
+		LoadTexture("textures/snow.jpg",&terraintexture,1,0);
 
-		LoadTexture("Textures/rock.jpg",&terraintexture2,1,0);
+		LoadTexture("textures/rock.jpg",&terraintexture2,1,0);
 
-		//LoadTexture("Textures/detailgrain.png",&terraintexture3,1);
+		//LoadTexture("textures/detailgrain.png",&terraintexture3,1);
 
 
 
@@ -1638,14 +1638,14 @@ void	Game::Setenvironment(int which)
 		temptexdetail=texdetail;
 		if(texdetail>1)texdetail=4;
 		skybox.load(
-            "Textures/Skybox(snow)/Front.jpg",
-			"Textures/Skybox(snow)/Left.jpg",
-			"Textures/Skybox(snow)/Back.jpg",
-			"Textures/Skybox(snow)/Right.jpg",
-			"Textures/Skybox(snow)/Up.jpg",
-			"Textures/Skybox(snow)/Down.jpg",
-			"Textures/Skybox(snow)/Cloud.jpg",
-			"Textures/Skybox(snow)/Reflect.jpg"
+            "textures/skyboxsnowfront.jpg",
+			"textures/skyboxsnowleft.jpg",
+			"textures/skyboxsnowback.jpg",
+			"textures/skyboxsnowright.jpg",
+			"textures/skyboxsnowup.jpg",
+			"textures/skyboxsnowdown.jpg",
+			"textures/skyboxsnowcloud.jpg",
+			"textures/skyboxsnowreflect.jpg"
         );
 
 
@@ -1656,10 +1656,10 @@ void	Game::Setenvironment(int which)
 	if(environment==desertenvironment){
 		windvector=0;
 		windvector.z=2;
-		LoadTexture("Textures/deserttree.png",&objects.treetextureptr,0,1);
-		LoadTexture("Textures/bushdesert.png",&objects.bushtextureptr,0,1);
-		LoadTexture("Textures/boulderdesert.jpg",&objects.rocktextureptr,1,0);
-		LoadTexture("Textures/desertbox.jpg",&objects.boxtextureptr,1,0);
+		LoadTexture("textures/deserttree.png",&objects.treetextureptr,0,1);
+		LoadTexture("textures/bushdesert.png",&objects.bushtextureptr,0,1);
+		LoadTexture("textures/boulderdesert.jpg",&objects.rocktextureptr,1,0);
+		LoadTexture("textures/desertbox.jpg",&objects.boxtextureptr,1,0);
 
 		if(ambientsound){
 			//PlaySoundEx( desertambient, samp[desertambient], NULL, true);
@@ -1672,34 +1672,34 @@ void	Game::Setenvironment(int which)
 		OPENAL_Sample_Free(samp[footstepsound2]);
 		OPENAL_Sample_Free(samp[footstepsound3]);
 		OPENAL_Sample_Free(samp[footstepsound4]);
-		samp[footstepsound] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow1.ogg").c_str(), OPENAL_HW3D, 0, 0);
-		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow2.ogg").c_str(), OPENAL_HW3D, 0, 0);
-		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow1.ogg").c_str(), OPENAL_HW3D, 0, 0);
-		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepsnow2.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepsnow1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepsnow2.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepsnow1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepsnow2.ogg").c_str(), OPENAL_HW3D, 0, 0);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound2], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound3], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound4], 4.0f, 1000.0f);
 
-		LoadTexture("Textures/sand.jpg",&terraintexture,1,0);
+		LoadTexture("textures/sand.jpg",&terraintexture,1,0);
 
-		LoadTexture("Textures/sandslope.jpg",&terraintexture2,1,0);
+		LoadTexture("textures/sandslope.jpg",&terraintexture2,1,0);
 
-		//LoadTexture("Textures/detailgrain.png",&terraintexture3,1);
+		//LoadTexture("textures/detailgrain.png",&terraintexture3,1);
 
 
 
 		temptexdetail=texdetail;
 		if(texdetail>1)texdetail=4;
 		skybox.load(
-            "Textures/Skybox(sand):Front.jpg",
-			"Textures/Skybox(sand):Left.jpg",
-			"Textures/Skybox(sand):Back.jpg",
-			"Textures/Skybox(sand):Right.jpg",
-			"Textures/Skybox(sand):Up.jpg",
-			"Textures/Skybox(sand):Down.jpg",
-			"Textures/Skybox(sand):Cloud.jpg",
-			"Textures/Skybox(sand):Reflect.jpg"
+            "textures/skyboxsandfront.jpg",
+			"textures/skyboxsandleft.jpg",
+			"textures/skyboxsandback.jpg",
+			"textures/skyboxsandright.jpg",
+			"textures/skyboxsandup.jpg",
+			"textures/skyboxsanddown.jpg",
+			"textures/skyboxsandcloud.jpg",
+			"textures/skyboxsandreflect.jpg"
         );
 
 		texdetail=temptexdetail;
@@ -1707,10 +1707,10 @@ void	Game::Setenvironment(int which)
 	if(environment==grassyenvironment){
 		windvector=0;
 		windvector.z=2;
-		LoadTexture("Textures/tree.png",&objects.treetextureptr,0,1);
-		LoadTexture("Textures/bush.png",&objects.bushtextureptr,0,1);
-		LoadTexture("Textures/boulder.jpg",&objects.rocktextureptr,1,0);
-		LoadTexture("Textures/grassbox.jpg",&objects.boxtextureptr,1,0);
+		LoadTexture("textures/tree.png",&objects.treetextureptr,0,1);
+		LoadTexture("textures/bush.png",&objects.bushtextureptr,0,1);
+		LoadTexture("textures/boulder.jpg",&objects.rocktextureptr,1,0);
+		LoadTexture("textures/grassbox.jpg",&objects.boxtextureptr,1,0);
 
 		if(ambientsound){
 			PlayStreamEx( stream_wind, strm[stream_wind], NULL, true);
@@ -1722,41 +1722,41 @@ void	Game::Setenvironment(int which)
 		OPENAL_Sample_Free(samp[footstepsound2]);
 		OPENAL_Sample_Free(samp[footstepsound3]);
 		OPENAL_Sample_Free(samp[footstepsound4]);
-		samp[footstepsound] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepgrass1.ogg").c_str(), OPENAL_HW3D, 0, 0);
-		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepgrass2.ogg").c_str(), OPENAL_HW3D, 0, 0);
-		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepstone1.ogg").c_str(), OPENAL_HW3D, 0, 0);
-		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("Sounds/footstepstone2.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepgrass1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound2] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepgrass2.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound3] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepstone1.ogg").c_str(), OPENAL_HW3D, 0, 0);
+		samp[footstepsound4] = OPENAL_Sample_Load(OPENAL_FREE, locateDataFile("sounds/footstepstone2.ogg").c_str(), OPENAL_HW3D, 0, 0);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound2], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound3], 4.0f, 1000.0f);
 		OPENAL_Sample_SetMinMaxDistance(samp[footstepsound4], 4.0f, 1000.0f);
 
-		LoadTexture("Textures/grassdirt.jpg",&terraintexture,1,0);
+		LoadTexture("textures/grassdirt.jpg",&terraintexture,1,0);
 
-		LoadTexture("Textures/mossrock.jpg",&terraintexture2,1,0);
+		LoadTexture("textures/mossrock.jpg",&terraintexture2,1,0);
 
-		//LoadTexture("Textures/detail.png",&terraintexture3,1);
+		//LoadTexture("textures/detail.png",&terraintexture3,1);
 
 
 
 		temptexdetail=texdetail;
 		if(texdetail>1) texdetail=4;
 		skybox.load(
-            "Textures/Skybox(grass)/Front.jpg",
-			"Textures/Skybox(grass)/Left.jpg",
-			"Textures/Skybox(grass)/Back.jpg",
-			"Textures/Skybox(grass)/Right.jpg",
-			"Textures/Skybox(grass)/Up.jpg",
-			"Textures/Skybox(grass)/Down.jpg",
-			"Textures/Skybox(grass)/Cloud.jpg",
-			"Textures/Skybox(grass)/Reflect.jpg"
+            "textures/skyboxgrassfront.jpg",
+			"textures/skyboxgrassleft.jpg",
+			"textures/skyboxgrassback.jpg",
+			"textures/skyboxgrassright.jpg",
+			"textures/skyboxgrassup.jpg",
+			"textures/skyboxgrassdown.jpg",
+			"textures/skyboxgrasscloud.jpg",
+			"textures/skyboxgrassreflect.jpg"
         );
 
 		texdetail=temptexdetail;
 	}
 	temptexdetail=texdetail;
 	texdetail=1;
-	terrain.load("Textures/heightmap.png");
+	terrain.load("textures/heightmap.png");
 
 	texdetail=temptexdetail;
 }
@@ -1866,7 +1866,7 @@ Game::Loadlevel(char *name) {
 		won = 0;
 
 		//campaign=0;
-		animation[bounceidleanim].Load((char *)"Animations/Idle", middleheight, neutral);
+		animation[bounceidleanim].Load((char *) "animations/idle.anim", middleheight, neutral);
 
 		numdialogues = 0;
 
@@ -2361,7 +2361,7 @@ Game::Loadlevel(char *name) {
                             (char *) "Models/body7.solid",
                             (char *) "Models/bodylow.solid",
                             (char *) "Models/belt.solid", 1);
-					LoadTexture("Textures/Belt.png", &player[i].skeleton.drawmodelclothes.textureptr, 1, 1);
+					LoadTexture("textures/belt.png", &player[i].skeleton.drawmodelclothes.textureptr, 1, 1);
 				}
 				if(player[i].creature ==wolftype) {
 					player[i].skeleton.Load(
@@ -2468,7 +2468,7 @@ Game::Loadlevel(char *name) {
 				player[i].proportionlegs.z=0;
 			}
 
-			player[i].tempanimation.Load((char *) "Animations/Tempanim", 0, 0);
+			player[i].tempanimation.Load((char *) "animations/tempanim.anim", 0, 0);
 
 			player[i].headmorphness=0;
 			player[i].targetheadmorphness=1;
@@ -2607,14 +2607,14 @@ Game::Loadlevel(char *name) {
 		oldmusicvolume[3]=0;
 
 
-		/*LoadTexture("Textures:cloud.png",&sprites.cloudtexture,1,1);
-		LoadTexture("Textures/cloudimpact.png",&sprites.cloudimpacttexture,1,1);
-		LoadTexture("Textures/bloodparticle.png",&sprites.bloodtexture,1,1);
-		LoadTexture("Textures/snowflake.png",&sprites.snowflaketexture,1,1);
-		LoadTexture("Textures/flame.png",&sprites.flametexture,1,1);
-		LoadTexture("Textures/bloodflame.png",&sprites.bloodflametexture,1,1);
-		LoadTexture("Textures/smoke.png",&sprites.smoketexture,1,1);
-		LoadTexture("Textures/shine.png",&sprites.shinetexture,1,0);
+		/*LoadTexture("textures/cloud.png",&sprites.cloudtexture,1,1);
+		LoadTexture("textures/cloudimpact.png",&sprites.cloudimpacttexture,1,1);
+		LoadTexture("textures/bloodparticle.png",&sprites.bloodtexture,1,1);
+		LoadTexture("textures/snowflake.png",&sprites.snowflaketexture,1,1);
+		LoadTexture("textures/flame.png",&sprites.flametexture,1,1);
+		LoadTexture("textures/bloodflame.png",&sprites.bloodflametexture,1,1);
+		LoadTexture("textures/smoke.png",&sprites.smoketexture,1,1);
+		LoadTexture("textures/shine.png",&sprites.shinetexture,1,0);
 		*/
 
 		if(!firstload)
@@ -6100,7 +6100,7 @@ void	Game::Tick()
                                                 (char *) "Models/wolf7.solid",
                                                 (char *) "Models/wolflow.solid",
                                                 (char *) "Models/belt.solid", 0);
-										LoadTextureSave("Textures/Wolf.jpg",&player[closest].skeleton.drawmodel.textureptr,1,&player[closest].skeleton.skinText[closest],&player[closest].skeleton.skinsize);
+										LoadTextureSave("textures/wolf.jpg",&player[closest].skeleton.drawmodel.textureptr,1,&player[closest].skeleton.skinText[closest],&player[closest].skeleton.skinsize);
 										player[closest].whichskin=0;
 										player[closest].creature=wolftype;
 
@@ -6129,7 +6129,7 @@ void	Game::Tick()
                                                 (char *) "Models/Body7.solid",
                                                 (char *) "Models/Bodylow.solid",
                                                 (char *) "Models/Belt.solid", 1);
-										LoadTextureSave("Textures/Fur3.jpg",&player[closest].skeleton.drawmodel.textureptr,1,&player[closest].skeleton.skinText[0],&player[closest].skeleton.skinsize);
+										LoadTextureSave("textures/fur3.jpg",&player[closest].skeleton.drawmodel.textureptr,1,&player[closest].skeleton.skinText[0],&player[closest].skeleton.skinsize);
 										player[closest].whichskin=0;
 										player[closest].creature=rabbittype;
 
@@ -6539,19 +6539,19 @@ void	Game::Tick()
 
 								k=abs(rand()%2)+1;
 								if(k==0){
-									LoadTextureSave("Textures/Fur3.jpg",&player[numplayers].skeleton.drawmodel.textureptr,1,&player[numplayers].skeleton.skinText[0],&player[numplayers].skeleton.skinsize);
+									LoadTextureSave("textures/fur3.jpg",&player[numplayers].skeleton.drawmodel.textureptr,1,&player[numplayers].skeleton.skinText[0],&player[numplayers].skeleton.skinsize);
 									player[numplayers].whichskin=0;
 								}
 								else if(k==1){
-									LoadTextureSave("Textures/Fur.jpg",&player[numplayers].skeleton.drawmodel.textureptr,1,&player[numplayers].skeleton.skinText[0],&player[numplayers].skeleton.skinsize);
+									LoadTextureSave("textures/fur.jpg",&player[numplayers].skeleton.drawmodel.textureptr,1,&player[numplayers].skeleton.skinText[0],&player[numplayers].skeleton.skinsize);
 									player[numplayers].whichskin=1;
 								}
 								else {
-									LoadTextureSave("Textures/Fur2.jpg",&player[numplayers].skeleton.drawmodel.textureptr,1,&player[numplayers].skeleton.skinText[0],&player[numplayers].skeleton.skinsize);
+									LoadTextureSave("textures/fur2.jpg",&player[numplayers].skeleton.drawmodel.textureptr,1,&player[numplayers].skeleton.skinText[0],&player[numplayers].skeleton.skinsize);
 									player[numplayers].whichskin=2;
 								}
 
-								LoadTexture("Textures/Belt.png",&player[numplayers].skeleton.drawmodelclothes.textureptr,1,1);
+								LoadTexture("textures/belt.png",&player[numplayers].skeleton.drawmodelclothes.textureptr,1,1);
 								player[numplayers].power=1;
 								player[numplayers].speedmult=1;
 								player[numplayers].currentanimation=bounceidleanim;
@@ -6617,7 +6617,7 @@ void	Game::Tick()
 									player[numplayers].proportionlegs.z=0;
 								}
 
-								player[numplayers].tempanimation.Load((char *) "Animations/Tempanim", 0, 0);
+								player[numplayers].tempanimation.Load((char *) "animations/tempanim.anim", 0, 0);
 
 								player[numplayers].damagetolerance=200;
 

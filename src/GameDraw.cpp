@@ -2254,22 +2254,22 @@ int Game::DrawGLScene(void)
 		if(texdetail>2)texdetail=2;
 		if(mainmenu!=oldmainmenu&&oldmainmenu!=0){
 			if(mainmenu==1){
-				LoadTexture("Textures/Newgame.png",&Mainmenuitems[1],0,0);
-				LoadTexture("Textures/Quit.png",&Mainmenuitems[3],0,0);
+				LoadTexture("textures/newgame.png",&Mainmenuitems[1],0,0);
+				LoadTexture("textures/quit.png",&Mainmenuitems[3],0,0);
 				/*if(oldmainmenu==1||oldmainmenu==0){
-				LoadTexture("Textures/World.png",&Mainmenuitems[7],0,0);
-				LoadTexture("Textures/Options.png",&Mainmenuitems[2],0,0);
-				LoadTexture("Textures/Lugaru.png",&Mainmenuitems[0],0,0);
+				LoadTexture("textures/world.png",&Mainmenuitems[7],0,0);
+				LoadTexture("textures/options.png",&Mainmenuitems[2],0,0);
+				LoadTexture("textures/lugaru.png",&Mainmenuitems[0],0,0);
 				loaddistrib=0;
 				}*/
 			}
 			if(mainmenu==2){
-				LoadTexture("Textures/Resume.png",&Mainmenuitems[1],0,0);
-				LoadTexture("Textures/Endgame.png",&Mainmenuitems[3],0,0);
+				LoadTexture("textures/resume.png",&Mainmenuitems[1],0,0);
+				LoadTexture("textures/endgame.png",&Mainmenuitems[3],0,0);
 				/*if(oldmainmenu==2||oldmainmenu==0){
-				LoadTexture("Textures/World.png",&Mainmenuitems[7],0,0);
-				LoadTexture("Textures/Options.png",&Mainmenuitems[2],0,0);
-				LoadTexture("Textures/Lugaru.png",&Mainmenuitems[0],0,0);
+				LoadTexture("textures/world.png",&Mainmenuitems[7],0,0);
+				LoadTexture("textures/options.png",&Mainmenuitems[2],0,0);
+				LoadTexture("textures/lugaru.png",&Mainmenuitems[0],0,0);
 				loaddistrib=0;
 				}*/
 			}
