@@ -2,7 +2,7 @@ libraries.lugaru {
     name = lugaru
     version = $(project.version)
     install = false
-    sources = Log.cpp FileIO.cpp WinInput.cpp pack.cpp pack_private.cpp unpack.cpp unpack_private.cpp private.cpp MacCompatibility.cpp Frustum.cpp GameDraw.cpp GameInitDispose.cpp GameTick.cpp Globals.cpp Lights.cpp Models.cpp Objects.cpp openal_wrapper.cpp Person.cpp Quaternions.cpp Skeleton.cpp Skybox.cpp Sprites.cpp Terrain.cpp Text.cpp TGALoader.cpp Weapons.cpp
+    sources = Log.cpp FileIO.cpp WinInput.cpp BinIO.cpp BinIO_private.cpp MacCompatibility.cpp Frustum.cpp GameDraw.cpp GameInitDispose.cpp GameTick.cpp Globals.cpp Lights.cpp Models.cpp Objects.cpp openal_wrapper.cpp Person.cpp Quaternions.cpp Skeleton.cpp Skybox.cpp Sprites.cpp Terrain.cpp Text.cpp TGALoader.cpp Weapons.cpp
     packages = sdl openal ogg vorbisfile glibmm-2.4
 }
 
@@ -11,4 +11,10 @@ programs.lugaru {
     sources = OpenGL_Windows.cpp
     libraries = lugaru (local) (static) jpeg
     packages = sdl openal ogg vorbisfile glu libpng glibmm-2.4 
+}
+
+programs.mapmetadump {
+    name = mapmetadump
+    sources = BinIO.cpp BinIO_private.cpp mapmetadump.cpp
+    install = false
 }
