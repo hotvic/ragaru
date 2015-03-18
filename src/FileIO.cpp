@@ -36,7 +36,10 @@ locateDataFile(const char *datafile) {
             }
         }
     }
+    
+    bool found = false;
+    if (Glib::file_test(file, Glib::FILE_TEST_EXISTS) && Glib::file_test(file, Glib::FILE_TEST_IS_REGULAR)) found = true;
 
-    LOG->LOG("DataFile %s: %s", datafile, file.c_str());
+    LOG->LOG("DataFile %s: %s (found: %s)", datafile, file.c_str(), found ? "yes" : "no");
     return file;
 }
