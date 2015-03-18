@@ -1010,16 +1010,16 @@ void Skeleton::FindRotationMuscle(int which, int animation)
 	if(!isnormal(muscles[which].rotate3))muscles[which].rotate3=0;
 }
 
-void Animation::Load(char *filepath, int aheight, int aattack)
+void Animation::Load(char *filePath, int aheight, int aattack)
 {
 	static FILE *tfile;
 	static int i,j;
 	static XYZ startoffset,endoffset;
 	static int howmany;
 
-    std::string fileName = locateDataFile(filepath);
-
-	LOG->LOG("Loading animation... %s", fileName.c_str());
+    LOG->LOG("Loading animation... %s", filePath);
+    
+    std::string fileName = locateDataFile(filePath);	
 
 	deallocate();
 

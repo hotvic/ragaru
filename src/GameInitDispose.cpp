@@ -1403,7 +1403,7 @@ void Game::LoadStuff()
 	LoadTexture("Textures/Swordbloodlight.jpg",&weapons.lightbloodswordtextureptr,1,0);
 	LoadTexture("Textures/Staff.jpg",&weapons.stafftextureptr,1,0);
 
-	weapons.throwingknifemodel.load((char *)"Models/throwingknife.solid",1);
+	weapons.throwingknifemodel.load((char *) "Models/throwingknife.solid", 1);
 	weapons.throwingknifemodel.Scale(.001,.001,.001);
 	//weapons.throwingknifemodel.Rotate(0,0,-90);
 	weapons.throwingknifemodel.Rotate(90,0,0);
@@ -1412,7 +1412,7 @@ void Game::LoadStuff()
 	weapons.throwingknifemodel.CalculateNormals(1);
 	//weapons.throwingknifemodel.ScaleNormals(-1,-1,-1);
 
-	weapons.swordmodel.load((char *)"Models/sword.solid",1);
+	weapons.swordmodel.load((char *) "Models/sword.solid",1);
 	weapons.swordmodel.Scale(.001,.001,.001);
 	//weapons.swordmodel.Rotate(0,0,-90);
 	weapons.swordmodel.Rotate(90,0,0);
@@ -1422,7 +1422,7 @@ void Game::LoadStuff()
 	weapons.swordmodel.CalculateNormals(1);
 	//weapons.swordmodel.ScaleNormals(-1,-1,-1);
 
-	weapons.staffmodel.load((char *)"Models/staff.solid",1);
+	weapons.staffmodel.load((char *) "Models/staff.solid",1);
 	weapons.staffmodel.Scale(.005,.005,.005);
 	//weapons.staffmodel.Rotate(0,0,-90);
 	weapons.staffmodel.Rotate(90,0,0);
@@ -1525,7 +1525,7 @@ void Game::LoadStuff()
 	viewer.x=terrain.size/2*terrain.scale;
 	viewer.z=terrain.size/2*terrain.scale;
 
-	hawk.load((char *)"Models/hawk.solid",1);
+	hawk.load((char *) "Models/hawk.solid", 1);
 	hawk.Scale(.03,.03,.03);
 	hawk.Rotate(90,1,1);
 	hawk.CalculateNormals(0);
@@ -1535,20 +1535,20 @@ void Game::LoadStuff()
 	hawkcoords.y=terrain.getHeight(hawkcoords.x,hawkcoords.z)+25;
 
 
-	eye.load((char *)"Models/eye.solid",1);
+	eye.load((char *) "Models/eye.solid", 1);
 	eye.Scale(.03,.03,.03);
 	eye.CalculateNormals(0);
 
-	cornea.load((char *)"Models/cornea.solid",1);
+	cornea.load((char *) "Models/cornea.solid", 1);
 	cornea.Scale(.03,.03,.03);
 	cornea.CalculateNormals(0);
 
-	iris.load((char *)"Models/iris.solid",1);
+	iris.load((char *) "Models/iris.solid", 1);
 	iris.Scale(.03,.03,.03);
 	iris.CalculateNormals(0);
 
-	LoadSave("Textures/Bloodfur.png",0,1,&bloodText[0],0);
-	LoadSave("Textures/Wolfbloodfur.png",0,1,&wolfbloodText[0],0);
+	LoadSave("Textures/Bloodfur.png", 0, 1, &bloodText[0], 0);
+	LoadSave("Textures/Wolfbloodfur.png", 0, 1, &wolfbloodText[0], 0);
 
 	oldenvironment=-4;
 
