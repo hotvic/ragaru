@@ -1,0 +1,85 @@
+version
+indemo
+maptype
+hostile
+envinronment
+viewdist
+fadestart
+radius
+skyboxtexture
+skybox(r, b, g)
+skylight(r, b, g)
+mapcenter(x, y, z)
+
+numdialogues
+  dialoguetype[]
+  [10]:
+    participantroation
+    participantlocation(x ,y, z)
+
+  numdialogueboxes
+    dialogueboxlocation
+    dialogueboxsound
+    dialogueboxcolor(r, b, g)
+    dialoguecamera(x, y, z)
+    dialoguecamerarotation
+    dialoguecamerarotation2
+    participantfocus
+    participantaction
+
+    strlen
+      dialoguename
+    strlen
+      dialoguetext
+
+    [10]:
+      participantfacing(x, y, z)
+
+numobjects
+  type
+  rotation
+  rotation2
+  scale
+  position(x, y, z)
+
+numhotspots
+  type
+  size
+  position(x, y, z)
+
+  strlen
+    text
+
+numpathpoints
+  position(x, y, z)
+
+  numconnects
+    pathpointconnect
+
+numplayers
+  coords(x, y, z)
+  rotation
+  targetrotation
+  armorhead, armorhigh, armorlow
+  protectionhead, protectionhigh, protectionlow
+  metalhead, metalhigh, metallow
+  power, speedmult
+  skin, creature
+  scale
+  howactive
+  immobile
+  waypoint
+  headprop, bodyprop, armprop, legprop
+
+  numclothes
+    tint(r, b, g)
+
+    strlen
+      file
+
+  numweapons
+    type
+
+  numwaypoints
+    type
+    position(x, y, z)
