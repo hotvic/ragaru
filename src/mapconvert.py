@@ -391,7 +391,7 @@ def writemap(mapname, m):
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("usage: mapmetadump.py <orig_name> <dest_name>")
+        print("usage: {0} <orig_name> <dest_name>".format(sys.argv[0]))
         sys.exit(1)
 
     r = readmap(sys.argv[1])
