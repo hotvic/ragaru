@@ -1,5 +1,4 @@
 syntax:glob
-src/liblugaru.*
-src/lugaru
-src/mapmetadump
+src/libragaru.*
+src/ragaru
 .*

@@ -24,16 +24,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #include "SDL.h"
 
-#if (defined(__APPLE__) && defined(__MACH__))
-#  ifdef PLATFORM_MACOSX
-#    error Do not define PLATFORM_MACOSX for new builds. It is for the old Carbonized build.
-#  endif
-#endif
-
-#ifdef PLATFORM_MACOSX
-#include <Carbon.h>
-#include "Quicktime.h"
-#endif
 
 //Jordan included glut.h
 //#include <glut.h>
@@ -59,7 +49,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Objects.h"
 //#include <DrawSprocket.h>
 #include "Weapons.h"
-#include "binio.h"
+#include "BinIO.h"
 #include <fstream>
 #include "gamegl.h"
 
