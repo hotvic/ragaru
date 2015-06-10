@@ -130,10 +130,10 @@ void	Weapons::DoStuff(){
 			position[i]=0;
 			physics[i]=0;
 			if(tempowner!=-1){
-				player[tempowner].num_weapons--;
-				if(player[tempowner].num_weapons){
-					player[tempowner].weaponids[0]=player[tempowner].weaponids[player[tempowner].num_weapons];
-					if(player[tempowner].weaponstuck==player[tempowner].num_weapons)player[tempowner].weaponstuck=0;
+				player[tempowner].numweapons--;
+				if(player[tempowner].numweapons){
+					player[tempowner].weaponids[0]=player[tempowner].weaponids[player[tempowner].numweapons];
+					if(player[tempowner].weaponstuck==player[tempowner].numweapons)player[tempowner].weaponstuck=0;
 				}
 				player[tempowner].weaponactive=-1;
 			}
@@ -234,22 +234,22 @@ void	Weapons::DoStuff(){
 									player[j].targetframe=1;
 									player[j].target=1;
 									owner[i]=player[j].id;
-									if(player[j].num_weapons>0){
-										player[j].weaponids[player[j].num_weapons]=player[j].weaponids[0];
+									if(player[j].numweapons>0){
+										player[j].weaponids[player[j].numweapons]=player[j].weaponids[0];
 									}
-									player[j].num_weapons++;
+									player[j].numweapons++;
 									player[j].weaponids[0]=i;
 
 									player[j].aitype=attacktypecutoff;
 								}
 								else {
 									if(j!=0)numthrowkill++;
-									player[j].num_weapons++;
-									player[j].weaponstuck=player[j].num_weapons-1;
+									player[j].numweapons++;
+									player[j].weaponstuck=player[j].numweapons-1;
 									if(normaldotproduct(player[j].facing,velocity[i])>0)player[j].weaponstuckwhere=1;
 									else player[j].weaponstuckwhere=0;
 
-									player[j].weaponids[player[j].num_weapons-1]=i;
+									player[j].weaponids[player[j].numweapons-1]=i;
 
 									player[j].RagDoll(0);
 									player[j].skeleton.joints[player[j].skeleton.jointlabels[abdomen]].velocity+=velocity[i]*2;

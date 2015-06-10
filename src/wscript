@@ -1,0 +1,13 @@
+#! /usr/bin/env python
+# encoding: utf-8
+
+def configure(cnf):
+    cnf.define('LIBDIR', cnf.env['LIBDIR'])
+    cnf.define('DATADIR', cnf.env['INSTALL_DATA_DIR'])
+    cnf.write_config_header('config.h')
+
+def build(bld):
+    srcs = 'Log.cpp FileIO.cpp WinInput.cpp BinIO.cpp BinIO_private.cpp MacCompatibility.cpp Frustum.cpp GameDraw.cpp GameInitDispose.cpp GameTick.cpp Globals.cpp Lights.cpp Models.cpp Objects.cpp openal_wrapper.cpp Person.cpp Quaternions.cpp Skeleton.cpp Skybox.cpp Sprites.cpp Terrain.cpp Text.cpp TGALoader.cpp Weapons.cpp'
+    bld.stlib(source=srcs, target='ragaru', name='libragaru', use=['SDL', 'OPENAL', 'OGG', 'VORBISFILE', 'GLIBMM'])
+    bld.program(source='OpenGL_Windows.cpp', target='ragaru', features='c cxx cxxprogram', use=['libragaru', 'JPEG', 'OGG', 'GLIBMM', 'GLU', 'OPENAL', 'SDL', 'LIBPNG', 'ZLIB', 'VORBISFILE'], includes='.')
+
