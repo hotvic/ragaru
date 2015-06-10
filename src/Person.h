@@ -73,7 +73,12 @@ class Person
 		int oldtargetframe;
 		int oldcurrentanimation;
 		int oldtargetanimation;
-		
+
+        float headprop;
+        float bodyprop;
+        float armprop;
+        float legprop;
+
 		int howactive;
 		
 		float parriedrecently;
@@ -271,7 +276,7 @@ class Person
 		
 		int playerdetail;
 		
-		int num_weapons;
+		int numweapons;
 		int weaponids[4];
 		int weaponactive;
 		int weaponstuck;

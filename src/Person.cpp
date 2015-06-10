@@ -1035,10 +1035,10 @@ void Person::Reverse(){
 					weapons.freetime[victim->weaponids[0]]=0;
 					weapons.firstfree[victim->weaponids[0]]=1;
 					weapons.physics[victim->weaponids[0]]=1;
-					victim->num_weapons--;
-					if(victim->num_weapons){
-						victim->weaponids[0]=victim->weaponids[victim->num_weapons];
-						if(victim->weaponstuck==victim->num_weapons)victim->weaponstuck=0;
+					victim->numweapons--;
+					if(victim->numweapons){
+						victim->weaponids[0]=victim->weaponids[victim->numweapons];
+						if(victim->weaponstuck==victim->numweapons)victim->weaponstuck=0;
 				 }
 
 					victim->weaponactive=-1;
@@ -1063,10 +1063,10 @@ void Person::Reverse(){
 					weapons.freetime[victim->weaponids[0]]=0;
 					weapons.firstfree[victim->weaponids[0]]=1;
 					weapons.physics[victim->weaponids[0]]=1;
-					victim->num_weapons--;
-					if(victim->num_weapons){
-						victim->weaponids[0]=victim->weaponids[victim->num_weapons];
-						if(victim->weaponstuck==victim->num_weapons)victim->weaponstuck=0;
+					victim->numweapons--;
+					if(victim->numweapons){
+						victim->weaponids[0]=victim->weaponids[victim->numweapons];
+						if(victim->weaponstuck==victim->numweapons)victim->weaponstuck=0;
 				 }
 
 					victim->weaponactive=-1;
@@ -1090,10 +1090,10 @@ void Person::Reverse(){
 					weapons.freetime[victim->weaponids[0]]=0;
 					weapons.firstfree[victim->weaponids[0]]=1;
 					weapons.physics[victim->weaponids[0]]=1;
-					victim->num_weapons--;
-					if(victim->num_weapons){
-						victim->weaponids[0]=victim->weaponids[victim->num_weapons];
-						if(victim->weaponstuck==victim->num_weapons)victim->weaponstuck=0;
+					victim->numweapons--;
+					if(victim->numweapons){
+						victim->weaponids[0]=victim->weaponids[victim->numweapons];
+						if(victim->weaponstuck==victim->numweapons)victim->weaponstuck=0;
 				 }
 
 					victim->weaponactive=-1;
@@ -1117,10 +1117,10 @@ void Person::Reverse(){
 					weapons.freetime[victim->weaponids[0]]=0;
 					weapons.firstfree[victim->weaponids[0]]=1;
 					weapons.physics[victim->weaponids[0]]=1;
-					victim->num_weapons--;
-					if(victim->num_weapons){
-						victim->weaponids[0]=victim->weaponids[victim->num_weapons];
-						if(victim->weaponstuck==victim->num_weapons)victim->weaponstuck=0;
+					victim->numweapons--;
+					if(victim->numweapons){
+						victim->weaponids[0]=victim->weaponids[victim->numweapons];
+						if(victim->weaponstuck==victim->numweapons)victim->weaponstuck=0;
 				 }
 
 					victim->weaponactive=-1;
@@ -1214,10 +1214,10 @@ void Person::Reverse(){
 					weapons.freetime[victim->weaponids[0]]=0;
 					weapons.firstfree[victim->weaponids[0]]=1;
 					weapons.physics[victim->weaponids[0]]=1;
-					victim->num_weapons--;
-					if(victim->num_weapons){
-						victim->weaponids[0]=victim->weaponids[num_weapons];
-						if(victim->weaponstuck==victim->num_weapons)victim->weaponstuck=0;
+					victim->numweapons--;
+					if(victim->numweapons){
+						victim->weaponids[0]=victim->weaponids[numweapons];
+						if(victim->weaponstuck==victim->numweapons)victim->weaponstuck=0;
 				 }
 					victim->weaponactive=-1;
 					for(int i=0;i<numplayers;i++){
@@ -1278,10 +1278,10 @@ void Person::Reverse(){
 					weapons.freetime[weaponids[0]]=0;
 					weapons.firstfree[weaponids[0]]=1;
 					weapons.physics[weaponids[0]]=1;
-					num_weapons--;
-					if(num_weapons){
-						weaponids[0]=weaponids[num_weapons];
-						if(weaponstuck==num_weapons)weaponstuck=0;
+					numweapons--;
+					if(numweapons){
+						weaponids[0]=weaponids[numweapons];
+						if(weaponstuck==numweapons)weaponstuck=0;
 				 }
 					weaponactive=-1;
 					for(int i=0;i<numplayers;i++){
@@ -1666,7 +1666,7 @@ void Person::RagDoll(bool checkcollision){
 		velocity/=skeleton.num_joints;
 
 		if(rand()%2==0){
-			if(weaponactive!=-1&&targetanimation!=rabbitkickanim&&num_weapons>0){
+			if(weaponactive!=-1&&targetanimation!=rabbitkickanim&&numweapons>0){
 				weapons.owner[weaponids[0]]=-1;
 				weapons.hitsomething[weaponids[0]]=0;
 				weapons.velocity[weaponids[0]]=skeleton.joints[skeleton.jointlabels[righthand]].velocity*scale*-.3;
@@ -1676,10 +1676,10 @@ void Person::RagDoll(bool checkcollision){
 				weapons.freetime[weaponids[0]]=0;
 				weapons.firstfree[weaponids[0]]=1;
 				weapons.physics[weaponids[0]]=1;
-				num_weapons--;
-				if(num_weapons){
-					weaponids[0]=weaponids[num_weapons];
-					if(weaponstuck==num_weapons)weaponstuck=0;
+				numweapons--;
+				if(numweapons){
+					weaponids[0]=weaponids[numweapons];
+					if(weaponstuck==numweapons)weaponstuck=0;
 				}
 				weaponactive=-1;
 				for(i=0;i<numplayers;i++){
@@ -2043,7 +2043,7 @@ void	Person::DoAnimations(){
 				}
 			}
 
-			if(!drawtogglekeydown&&drawkeydown&&(weaponactive==-1||num_weapons==1)&&(animation[targetanimation].label[targetframe]||(targetanimation!=currentanimation&&currentanimation==rollanim))&&num_weapons>0&&creature!=wolftype){
+			if(!drawtogglekeydown&&drawkeydown&&(weaponactive==-1||numweapons==1)&&(animation[targetanimation].label[targetframe]||(targetanimation!=currentanimation&&currentanimation==rollanim))&&numweapons>0&&creature!=wolftype){
 				if(weapons.type[weaponids[0]]==knife){
 					if(weaponactive==-1)weaponactive=0;
 					else if(weaponactive==0)weaponactive=-1;
@@ -2230,10 +2230,10 @@ void	Person::DoAnimations(){
 
 												weaponactive=0;
 												weapons.owner[i]=id;
-												if(num_weapons>0){
-													weaponids[num_weapons]=weaponids[0];
+												if(numweapons>0){
+													weaponids[numweapons]=weaponids[0];
 												}
-												num_weapons++;
+												numweapons++;
 												weaponids[0]=i;
 											}
 										}
@@ -2247,7 +2247,7 @@ void	Person::DoAnimations(){
 									if(weapons.owner[i]!=-1)
 										if(player[weapons.owner[i]].weaponstuck!=-1)
 											if(player[weapons.owner[i]].weaponids[player[weapons.owner[i]].weaponstuck]==i)
-												if(player[weapons.owner[i]].num_weapons>1)willwork=0;
+												if(player[weapons.owner[i]].numweapons>1)willwork=0;
 									if((/*weapons.velocity[i].x==0&&weapons.velocity[i].y==0&&weapons.velocity[i].z==0&&*/weapons.owner[i]==-1)||(hasvictim&&weapons.owner[i]==victim->id&&victim->skeleton.free))
 										if(willwork&&findDistancefastflat(&coords,&weapons.position[i])<3&&weaponactive==-1){
 											if(findDistancefast(&coords,&weapons.position[i])<1||hasvictim){
@@ -2284,8 +2284,8 @@ void	Person::DoAnimations(){
 													if(weapons.owner[i]!=-1){
 
 														victim=&player[weapons.owner[i]];
-														if(victim->num_weapons==1)victim->num_weapons=0;
-														else victim->num_weapons=1;
+														if(victim->numweapons==1)victim->numweapons=0;
+														else victim->numweapons=1;
 
 														//victim->weaponactive=-1;
 														victim->skeleton.longdead=0;
@@ -2312,10 +2312,10 @@ void	Person::DoAnimations(){
 																victim->weaponstuck=-1;
 															}
 														}
-														if(victim->num_weapons>0){
+														if(victim->numweapons>0){
 															if(victim->weaponstuck!=0&&victim->weaponstuck!=-1)victim->weaponstuck=0;
 															if(victim->weaponids[0]==i)
-																victim->weaponids[0]=victim->weaponids[victim->num_weapons];
+																victim->weaponids[0]=victim->weaponids[victim->numweapons];
 														}
 
 														victim->skeleton.joints[victim->skeleton.jointlabels[abdomen]].velocity+=relative*6;
@@ -2324,10 +2324,10 @@ void	Person::DoAnimations(){
 														victim->skeleton.joints[victim->skeleton.jointlabels[leftshoulder]].velocity+=relative*6;
 													}
 													weapons.owner[i]=id;
-													if(num_weapons>0){
-														weaponids[num_weapons]=weaponids[0];
+													if(numweapons>0){
+														weaponids[numweapons]=weaponids[0];
 													}
-													num_weapons++;
+													numweapons++;
 													weaponids[0]=i;
 											}
 										}
@@ -2338,7 +2338,7 @@ void	Person::DoAnimations(){
 								if(weaponactive==-1)weaponactive=0;
 								else if(weaponactive==0){
 									weaponactive=-1;
-									if(num_weapons==2){
+									if(numweapons==2){
 										int buffer;
 										buffer=weaponids[0];
 										weaponids[0]=weaponids[1];
@@ -3260,9 +3260,9 @@ void	Person::DoAnimations(){
 										weapons.freetime[weaponids[0]]=0;
 										weapons.firstfree[weaponids[0]]=1;
 										weapons.physics[weaponids[0]]=0;
-										num_weapons--;
-										if(num_weapons){
-											weaponids[0]=weaponids[num_weapons];
+										numweapons--;
+										if(numweapons){
+											weaponids[0]=weaponids[numweapons];
 										}
 										weaponactive=-1;
 									}
@@ -3446,10 +3446,10 @@ void	Person::DoAnimations(){
 											weapons.freetime[victim->weaponids[0]]=0;
 											weapons.firstfree[victim->weaponids[0]]=1;
 											weapons.physics[victim->weaponids[0]]=1;
-											victim->num_weapons--;
-											if(victim->num_weapons){
-												victim->weaponids[0]=victim->weaponids[num_weapons];
-												if(victim->weaponstuck==victim->num_weapons)victim->weaponstuck=0;
+											victim->numweapons--;
+											if(victim->numweapons){
+												victim->weaponids[0]=victim->weaponids[numweapons];
+												if(victim->weaponstuck==victim->numweapons)victim->weaponstuck=0;
 											}
 											victim->weaponactive=-1;
 											for(i=0;i<numplayers;i++){
@@ -3832,19 +3832,19 @@ void	Person::DoAnimations(){
 								}
 
 								if((targetanimation==swordslashreversalanim||targetanimation==knifeslashreversalanim||targetanimation==staffhitreversalanim||targetanimation==staffspinhitreversalanim)&&animation[targetanimation].label[currentframe]==5){
-									if(victim->weaponactive!=-1&&victim->num_weapons>0){
+									if(victim->weaponactive!=-1&&victim->numweapons>0){
 										if(weapons.owner[victim->weaponids[victim->weaponactive]]==victim->id){
 											weapons.owner[victim->weaponids[victim->weaponactive]]=id;
 											weaponactive=0;
-											if(num_weapons>0){
-												weaponids[num_weapons]=weaponids[victim->weaponactive];
+											if(numweapons>0){
+												weaponids[numweapons]=weaponids[victim->weaponactive];
 											}
-											num_weapons++;
+											numweapons++;
 											weaponids[0]=victim->weaponids[victim->weaponactive];
-											victim->num_weapons--;
-											if(victim->num_weapons>0){
-												victim->weaponids[victim->weaponactive]=victim->weaponids[victim->num_weapons];
-												//if(victim->weaponstuck==victim->num_weapons)victim->weaponstuck=0;
+											victim->numweapons--;
+											if(victim->numweapons>0){
+												victim->weaponids[victim->weaponactive]=victim->weaponids[victim->numweapons];
+												//if(victim->weaponstuck==victim->numweapons)victim->weaponstuck=0;
 											}
 											victim->weaponactive=-1;
 										}
@@ -4477,7 +4477,7 @@ void	Person::DoAnimations(){
 									if(weaponactive==-1)weaponactive=0;
 									else if(weaponactive==0){
 										weaponactive=-1;
-										if(num_weapons==2){
+										if(numweapons==2){
 											int buffer;
 											buffer=weaponids[0];
 											weaponids[0]=weaponids[1];
@@ -4791,7 +4791,7 @@ void	Person::DoAnimations(){
 									targetrotation=rotation;
 									bool hasstaff;
 									hasstaff=0;
-									if(num_weapons>0)if(weapons.type[0]==staff)hasstaff=1;
+									if(numweapons>0)if(weapons.type[0]==staff)hasstaff=1;
 									if(!hasstaff)DoDamage(35);
 									RagDoll(0);
 									lastfeint=0;
@@ -5021,7 +5021,7 @@ void	Person::DoStuff(){
 
 	if(isIdle()||isRun())targetoffset=0;
 
-	if(num_weapons==1&&weaponactive!=-1)weaponstuck=-1;
+	if(numweapons==1&&weaponactive!=-1)weaponstuck=-1;
 
 	if(id==0)blooddimamount-=multiplier*.3;
 	speechdelay-=multiplier;
@@ -5061,7 +5061,7 @@ void	Person::DoStuff(){
 		if(rand()%3==0)superruntoggle=1-superruntoggle;
 		}*/
 	}
-	if(weaponactive==-1&&num_weapons>0){
+	if(weaponactive==-1&&numweapons>0){
 		if(weapons.type[weaponids[0]]==staff){
 			weaponactive=0;
 		}
@@ -5177,10 +5177,10 @@ void	Person::DoStuff(){
 				weapons.freetime[weaponids[0]]=0;
 				weapons.firstfree[weaponids[0]]=1;
 				weapons.physics[weaponids[0]]=1;
-				num_weapons--;
-				if(num_weapons){
-					weaponids[0]=weaponids[num_weapons];
-					if(weaponstuck==num_weapons)weaponstuck=0;
+				numweapons--;
+				if(numweapons){
+					weaponids[0]=weaponids[numweapons];
+					if(weaponstuck==numweapons)weaponstuck=0;
 				}
 				weaponactive=-1;
 				for(i=0;i<numplayers;i++){
@@ -5595,10 +5595,10 @@ void	Person::DoStuff(){
 			weapons.freetime[weaponids[0]]=0;
 			weapons.firstfree[weaponids[0]]=1;
 			weapons.physics[weaponids[0]]=1;
-			num_weapons--;
-			if(num_weapons){
-				weaponids[0]=weaponids[num_weapons];
-				if(weaponstuck==num_weapons)weaponstuck=0;
+			numweapons--;
+			if(numweapons){
+				weaponids[0]=weaponids[numweapons];
+				if(weaponstuck==numweapons)weaponstuck=0;
 			}
 			weaponactive=-1;
 			for(i=0;i<numplayers;i++){
@@ -5660,10 +5660,10 @@ void	Person::DoStuff(){
 			weapons.freetime[weaponids[0]]=0;
 			weapons.firstfree[weaponids[0]]=1;
 			weapons.physics[weaponids[0]]=1;
-			num_weapons--;
-			if(num_weapons){
-				weaponids[0]=weaponids[num_weapons];
-				if(weaponstuck==num_weapons)weaponstuck=0;
+			numweapons--;
+			if(numweapons){
+				weaponids[0]=weaponids[numweapons];
+				if(weaponstuck==numweapons)weaponstuck=0;
 			}
 			weaponactive=-1;
 			for(i=0;i<numplayers;i++){
@@ -5986,7 +5986,7 @@ void	Person::DoStuff(){
 
 		bool hasstaff;
 		hasstaff=0;
-		if(num_weapons>0)if(weapons.type[0]==staff)hasstaff=1;
+		if(numweapons>0)if(weapons.type[0]==staff)hasstaff=1;
 		if(!skeleton.freefall&&freefall&&((jumpkeydown&&jumpkeydowntime<.2)||(hasstaff&&rabbitkickragdoll))&&!dead){
 			if(velocity.y>-30){
 				XYZ tempvelocity;
@@ -7373,8 +7373,8 @@ int Person::DrawSkeleton(){
 		}
 		glPopMatrix();
 
-		if(num_weapons>0){
-			for(k=0;k<num_weapons;k++){
+		if(numweapons>0){
+			for(k=0;k<numweapons;k++){
 				i=weaponids[k];
 				if(weaponactive==k){
 					if(weapons.type[i]!=staff){
@@ -7939,7 +7939,7 @@ Person::Person()
 
 	playerdetail = 0;
 
-	num_weapons = 0;
+	numweapons = 0;
 
 	memset(weaponids, 0, sizeof(weaponids));
 
