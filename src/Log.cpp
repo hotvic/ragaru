@@ -46,3 +46,19 @@ Lugaru::Log::DBG(const char *fmt, ...)
         output.put('\n');
     }
 }
+
+void
+Lugaru::Log::ERR(const char *fmt, ...)
+{
+    char buffer[255];
+
+    va_list argptr;
+    va_start(argptr, fmt);
+    vsprintf(buffer, fmt, argptr);
+    va_end(argptr);
+
+    std::cout << "ERR: " << buffer << std::endl;
+    output.write("ERR: ", 6);
+    output.write(buffer, 255);
+    output.put('\n');
+}
