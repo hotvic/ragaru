@@ -15,6 +15,7 @@ namespace Lugaru
             Log(bool console, bool dbg);
             void LOG(const char *fmt, ...);
             void DBG(const char *fmt, ...);
+            void ERR(const char *fmt, ...);
     };
 }
 
