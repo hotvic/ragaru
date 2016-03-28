@@ -1,26 +1,26 @@
 /*
-Copyright (C) 2003, 2010 - Wolfire Games
+ * Copruright © 2015 - Victor A. Santos <victoraur.santos@gmail.com>
+ * Copyright © 2003, 2010 - Wolfire Games
+ *
+ * This file is part of Ragaru.
+ *
+ * Ragaru is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 
-This file is part of Lugaru.
-
-Lugaru is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-
-See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
-#ifndef _OBJECTS_H_
-#define _OBJECTS_H_
+#ifndef OBJECTS_H
+#define OBJECTS_H
 
 #include "Quaternions.h"
 #include "gamegl.h"
@@ -52,48 +52,47 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define cooltype 12
 #define firetype 13
 
-
-class Objects{
+class Objects
+{
 public:
-	XYZ center;
-	float radius;
-	XYZ position[max_objects];
-	int type[max_objects];
-	float rotation[max_objects];
-	float rotation2[max_objects];
-	float rotx[max_objects];
-	float rotxvel[max_objects];
-	float roty[max_objects];
-	float rotyvel[max_objects];
-	int numobjects;
-	bool possible[max_objects];
-	Model model[max_objects];
-	Model displaymodel[max_objects];
-	float friction[max_objects];
-	float scale[max_objects];
-	float messedwith[max_objects];
-	float checked[max_objects];
-	GLuint 	boxtextureptr;
-	GLuint 	treetextureptr;
-	GLuint 	bushtextureptr;
-	GLuint 	rocktextureptr;
-	float shadowed[max_objects];
-	float occluded[max_objects];
-	bool checkcollide(XYZ startpoint, XYZ endpoint,int which);
-	bool onfire[max_objects];
-	float flamedelay[max_objects];
+    XYZ center;
+    float radius;
+    XYZ position[max_objects];
+    int type[max_objects];
+    float rotation[max_objects];
+    float rotation2[max_objects];
+    float rotx[max_objects];
+    float rotxvel[max_objects];
+    float roty[max_objects];
+    float rotyvel[max_objects];
+    int numobjects;
+    bool possible[max_objects];
+    Model model[max_objects];
+    Model displaymodel[max_objects];
+    float friction[max_objects];
+    float scale[max_objects];
+    float messedwith[max_objects];
+    float checked[max_objects];
+    GLuint boxtextureptr;
+    GLuint treetextureptr;
+    GLuint bushtextureptr;
+    GLuint rocktextureptr;
+    float shadowed[max_objects];
+    float occluded[max_objects];
+    bool checkcollide(XYZ startpoint, XYZ endpoint, int which);
+    bool onfire[max_objects];
+    float flamedelay[max_objects];
 
-	void SphereCheckPossible(XYZ *p1,float radius);
-	void DeleteObject(int which);
-	void MakeObject(int atype, XYZ where, float arotation, float ascale);
-	void MakeObject(int atype, XYZ where, float arotation, float arotation2, float ascale);
-	void Draw();
-	void DoShadows();
-	void DoStuff();
+    void SphereCheckPossible(XYZ* p1, float radius);
+    void DeleteObject(int which);
+    void MakeObject(int atype, XYZ where, float arotation, float ascale);
+    void MakeObject(int atype, XYZ where, float arotation, float arotation2, float ascale);
+    void Draw();
+    void DoShadows();
+    void DoStuff();
 
-	Objects();
-	~Objects();
+    Objects();
+    ~Objects();
 };
 
-#endif
-
+#endif /* OBJECTS_H */

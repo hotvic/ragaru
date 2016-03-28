@@ -1,5 +1,5 @@
 /*
- * Copruright © 2015 - Victor A. Santos <victoraur.santos@gmail.com>
+ * Copyright © 2015 - Victor A. Santos <victoraur.santos@gmail.com>
  * Copyright © 2003, 2010 - Wolfire Games
  *
  * This file is part of Ragaru.
