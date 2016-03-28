@@ -1,41 +1,30 @@
 /*
-Copyright (C) 2003, 2010 - Wolfire Games
+ * Copyright © 2015 - Victor A. Santos <victoraur.santos@gmail.com>
+ * Copyright © 2003, 2010 - Wolfire Games
+ *
+ * This file is part of Ragaru.
+ *
+ * Ragaru is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 
-This file is part of Lugaru.
+#ifndef GAME_H
+#define GAME_H
 
-Lugaru is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
-#ifndef _GAME_H_
-#define _GAME_H_
-
-#include "SDL.h"
-
-
-//Jordan included glut.h
-//#include <glut.h>
 
 #include "TGALoader.h"
-
-#if !PLATFORM_MACOSX
-#include "WinInput.h"
-#else
-#include "Macinput.h"
-#endif
-
+#include "Input.h"
 #include "Terrain.h"
 #include "Skybox.h"
 #include "Skeleton.h"
@@ -44,259 +33,277 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "Person.h"
 #include "Constants.h"
 #include "Sprites.h"
-//#include <agl.h>
 #include "Text.h"
 #include "Objects.h"
-//#include <DrawSprocket.h>
 #include "Weapons.h"
 #include "BinIO.h"
-#include <fstream>
 #include "gamegl.h"
+#include <fstream>
+#include <SDL.h>
 
 extern GLuint rabbittexture;
 
-class Game
+namespace Ragaru
 {
-public:
+    typedef struct {
+        SDL_Scancode crouch;
+        SDL_Scancode jump;
+        SDL_Scancode forward;
+        SDL_Scancode chat;
+        SDL_Scancode back;
+        SDL_Scancode left;
+        SDL_Scancode right;
+        SDL_Scancode draw;
+        SDL_Scancode throww;
 
-	typedef std::map<std::string, GLuint> TextureList;
-	typedef std::map<GLuint, std::string> GLTextureList;
-	typedef TextureList::iterator TexIter;
-	static TextureList textures;
+        Uint8 attack;
+        Uint8 oldattack;
+    } GameKeys;
 
-	GLuint terraintexture;
-	GLuint terraintexture2;
-	GLuint terraintexture3;
-	GLuint screentexture;
-	GLuint screentexture2;
-	GLuint logotexture;
-	GLuint loadscreentexture;
-	GLuint Maparrowtexture;
-	GLuint Mapboxtexture;
-	GLuint Mapcircletexture;
-	GLuint cursortexture;
-	GLuint Mainmenuitems[10];
+    class Game
+    {
+    public:
+        typedef std::map<std::string, GLuint> TextureList;
+        typedef std::map<GLuint, std::string> GLTextureList;
+        typedef TextureList::iterator TexIter;
+        static TextureList textures;
+        SDL_GLContext glcontext;
 
-	int nummenuitems;
-	int startx[100];
-	int starty[100];
-	int endx[100];
-	int endy[100];
-	float selectedlong[100];
-	float offsetx[100];
-	float offsety[100];
-	float movex[100];
-	float movey[100];
-	float transition;
-	int anim;
-	int selected;
-	int loaddistrib;
-	int keyselect;
-	int indemo;
+        // Something to say
+        int screenWidth;
+        int screenHeight;
+        int textureSize;
 
-	bool won;
+        GameKeys keys;
 
-	bool entername;
+        GLuint terraintexture;
+        GLuint terraintexture2;
+        GLuint terraintexture3;
+        GLuint screentexture;
+        GLuint screentexture2;
+        GLuint logotexture;
+        GLuint loadscreentexture;
+        GLuint Maparrowtexture;
+        GLuint Mapboxtexture;
+        GLuint Mapcircletexture;
+        GLuint cursortexture;
+        GLuint Mainmenuitems[10];
 
-	char menustring[100][256];
-	char registrationname[256];
-	float registrationnumber;
+        int nummenuitems;
+        int startx[100];
+        int starty[100];
+        int endx[100];
+        int endy[100];
+        float selectedlong[100];
+        float offsetx[100];
+        float offsety[100];
+        float movex[100];
+        float movey[100];
+        float transition;
+        int anim;
+        int selected;
+        int loaddistrib;
+        int keyselect;
+        int indemo;
 
-	int newdetail;
-	int newscreenwidth;
-	int newscreenheight;
+        bool won;
 
-	bool gameon;
-	float deltah,deltav;
-	int mousecoordh,mousecoordv;
-	int oldmousecoordh,oldmousecoordv;
-	float rotation,rotation2;
-	SkyBox skybox;
-	bool cameramode;
-	bool cameratogglekeydown;
-	bool chattogglekeydown;
-	int olddrawmode;
-	int drawmode;
-	bool drawmodetogglekeydown;
-	bool explodetogglekeydown;
-	bool detailtogglekeydown;
-	bool firstload;
-	bool oldbutton;
+        bool entername;
 
-	float leveltime;
-	float loadtime;
+        char menustring[100][256];
+        char registrationname[256];
+        float registrationnumber;
 
-	Model hawk;
-	XYZ hawkcoords;
-	XYZ realhawkcoords;
-	GLuint hawktexture;
-	float hawkrotation;
-	float hawkcalldelay;
+        int newdetail;
+        int newscreenwidth;
+        int newscreenheight;
 
-	Model eye;
-	Model iris;
-	Model cornea;
+        bool gameon;
+        float deltah, deltav;
+        int mousecoordh, mousecoordv;
+        int oldmousecoordh, oldmousecoordv;
+        float rotation, rotation2;
+        SkyBox skybox;
+        bool cameramode;
+        bool cameratogglekeydown;
+        bool chattogglekeydown;
+        int olddrawmode;
+        int drawmode;
+        bool drawmodetogglekeydown;
+        bool explodetogglekeydown;
+        bool detailtogglekeydown;
+        bool firstload;
+        bool oldbutton;
 
-	bool stealthloading;
+        float leveltime;
+        float loadtime;
 
-	int campaignnumlevels;
-	char campaignmapname[50][256];
-	char campaigndescription[50][256];
-	int campaignchoosenext[50];
-	int campaignnumnext[50];
-	int campaignnextlevel[50][10];
-	int campaignchoicesmade;
-	int campaignchoices[5000];
-	int campaignlocationx[50];
-	int campaignlocationy[50];
-	int campaignchoicenum;
-	int campaignchoicewhich[10];
-	int whichchoice;
+        Model hawk;
+        XYZ hawkcoords;
+        XYZ realhawkcoords;
+        GLuint hawktexture;
+        float hawkrotation;
+        float hawkcalldelay;
 
-	int numlevelspassed;
-	int levelorder[5000];
-	int levelvisible[50];
-	int levelhighlight[50];
+        Model eye;
+        Model iris;
+        Model cornea;
 
-	bool minimap;
+        bool stealthloading;
 
-	int musictype,oldmusictype,oldoldmusictype;
-	bool realthreat;
+        int campaignnumlevels;
+        char campaignmapname[50][256];
+        char campaigndescription[50][256];
+        int campaignchoosenext[50];
+        int campaignnumnext[50];
+        int campaignnextlevel[50][10];
+        int campaignchoicesmade;
+        int campaignchoices[5000];
+        int campaignlocationx[50];
+        int campaignlocationy[50];
+        int campaignchoicenum;
+        int campaignchoicewhich[10];
+        int whichchoice;
 
-	Model rabbit;
-	XYZ rabbitcoords;
+        int numlevelspassed;
+        int levelorder[5000];
+        int levelvisible[50];
+        int levelhighlight[50];
 
-	XYZ mapcenter;
-	float mapradius;
+        bool minimap;
 
-	Text text;
-	float fps;
+        int musictype, oldmusictype, oldoldmusictype;
+        bool realthreat;
 
-	XYZ cameraloc;
-	float cameradist;
+        Model rabbit;
+        XYZ rabbitcoords;
 
-	bool envtogglekeydown;
-	bool slomotogglekeydown;
-	bool texturesizetogglekeydown;
-	bool freezetogglekeydown;
-	int drawtoggle;
+        XYZ mapcenter;
+        float mapradius;
 
-	bool editorenabled;
-	int editortype;
-	float editorsize;
-	float editorrotation;
-	float editorrotation2;
+        Text text;
+        float fps;
 
-	float brightness;
+        XYZ cameraloc;
+        float cameradist;
 
-	int quit;
-	int tryquit;
+        bool envtogglekeydown;
+        bool slomotogglekeydown;
+        bool texturesizetogglekeydown;
+        bool freezetogglekeydown;
+        int drawtoggle;
 
-	XYZ pathpoint[30];
-	int numpathpoints;
-	int numpathpointconnect[30];
-	int pathpointconnect[30][30];
-	int pathpointselected;
+        bool editorenabled;
+        int editortype;
+        float editorsize;
+        float editorrotation;
+        float editorrotation2;
 
-	int endgame;
-	bool scoreadded;
-	int numchallengelevels;
+        float brightness;
 
-	bool console;
-	int archiveselected;
-	char consoletext[15][256];
-	int consolechars[15];
-	bool chatting;
-	char displaytext[15][256];
-	int displaychars[15];
-	float displaytime[15];
-	float displayblinkdelay;
-	bool displayblink;
-	int displayselected;
-	bool consolekeydown;
-	bool consoletogglekeydown;
-	float consoleblinkdelay;
-	bool consoleblink;
-	int consoleselected;
-	int togglekey[140];
-	float togglekeydelay[140];
-	bool registernow;
-	bool autocam;
+        int quit;
+        int tryquit;
 
-	unsigned short crouchkey,jumpkey,forwardkey,chatkey,backkey,leftkey,rightkey,drawkey,throwkey,attackkey;
-	bool oldattackkey;
+        XYZ pathpoint[30];
+        int numpathpoints;
+        int numpathpointconnect[30];
+        int pathpointconnect[30][30];
+        int pathpointselected;
 
-	long long MD5_string (char *string);
-	static void LoadTexture(const char *fileName, GLuint *textureid,int mipmap, bool hasalpha);
-	static void LoadTextureSave(const char *fileName, GLuint *textureid,int mipmap,GLubyte *array, int *skinsize);
-	void LoadSave(const char *fileName, GLuint *textureid,bool mipmap,GLubyte *array, int *skinsize);
-	bool AddClothes(const char *fileName, GLuint *textureid,bool mipmap,GLubyte *array, int *skinsize);
-	void InitGame();
-	void LoadStuff();
-	void LoadingScreen();
-	void FadeLoadingScreen(float howmuch);
-	void Dispose();
-	int DrawGLScene(void);
-	void Tick();
-	void TickOnce();
-	void TickOnceAfter();
-	void SetUpLighting();
-	void Loadlevel(int which);
-	void Loadlevel(char *name);
-	void LoadSounds();
-	void Setenvironment(int which);
-	GLvoid ReSizeGLScene(float fov, float near);
-	int findPathDist(int start,int end);
-	int checkcollide(XYZ startpoint, XYZ endpoint);
-	int checkcollide(XYZ startpoint, XYZ endpoint, int what);
-	int loading;
-	float talkdelay;
+        int endgame;
+        bool scoreadded;
+        int numchallengelevels;
 
-	int numboundaries;
-	XYZ boundary[360];
+        bool console;
+        int archiveselected;
+        char consoletext[15][256];
+        int consolechars[15];
+        bool chatting;
+        char displaytext[15][256];
+        int displaychars[15];
+        float displaytime[15];
+        float displayblinkdelay;
+        bool displayblink;
+        int displayselected;
+        bool consolekeydown;
+        bool consoletogglekeydown;
+        float consoleblinkdelay;
+        bool consoleblink;
+        int consoleselected;
+        int togglekey[140];
+        float togglekeydelay[140];
+        bool registernow;
+        bool autocam;
 
-	int whichlevel;
-	int oldenvironment;
-	int targetlevel;
-	float changedelay;
+        void CleanUp();
+        bool Setup();
+        void DoMouse();
+        long long MD5_string(char* string);
+        static void LoadTexture(const char* fileName, GLuint* textureid, int mipmap, bool hasalpha);
+        static void LoadTextureSave(const char* fileName, GLuint* textureid, int mipmap, GLubyte* array, int* skinsize);
+        void LoadSave(const char* fileName, GLuint* textureid, bool mipmap, GLubyte* array, int* skinsize);
+        bool AddClothes(const char* fileName, GLuint* textureid, bool mipmap, GLubyte* array, int* skinsize);
+        void InitGame();
+        void LoadStuff();
+        void LoadingScreen();
+        void FadeLoadingScreen(float howmuch);
+        void Dispose();
+        int DrawGLScene(void);
+        void Tick();
+        void TickOnce();
+        void TickOnceAfter();
+        void SetUpLighting();
+        void Loadlevel(int which);
+        void Loadlevel(char* name);
+        void LoadSounds();
+        void Setenvironment(int which);
+        GLvoid ReSizeGLScene(float fov, float near);
+        int findPathDist(int start, int end);
+        int checkcollide(XYZ startpoint, XYZ endpoint);
+        int checkcollide(XYZ startpoint, XYZ endpoint, int what);
+        int loading;
+        float talkdelay;
 
-	float musicvolume[4];
-	float oldmusicvolume[4];
-	int musicselected;
-	int change;
-	Game();
-	~Game() {
-		for(int i=0;i<10;i++){
-			if(Mainmenuitems[i])glDeleteTextures( 1, &Mainmenuitems[i] );
-		}
-		glDeleteTextures( 1, &cursortexture );
-		glDeleteTextures( 1, &Maparrowtexture );
-		glDeleteTextures( 1, &Mapboxtexture );
-		glDeleteTextures( 1, &Mapcircletexture );
-		glDeleteTextures( 1, &terraintexture );
-		glDeleteTextures( 1, &terraintexture2 );
-		if(screentexture>0)glDeleteTextures( 1, &screentexture );
-		if(screentexture2>0)glDeleteTextures( 1, &screentexture2 );
-		glDeleteTextures( 1, &hawktexture );
-		glDeleteTextures( 1, &logotexture );
-		glDeleteTextures( 1, &loadscreentexture );
+        int numboundaries;
+        XYZ boundary[360];
 
-		Dispose();
-	}
+        int whichlevel;
+        int oldenvironment;
+        int targetlevel;
+        float changedelay;
 
-};
+        float musicvolume[4];
+        float oldmusicvolume[4];
+        int musicselected;
+        int change;
+        Game();
+        ~Game()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if (Mainmenuitems[i]) glDeleteTextures(1, &Mainmenuitems[i]);
+            }
+            glDeleteTextures(1, &cursortexture);
+            glDeleteTextures(1, &Maparrowtexture);
+            glDeleteTextures(1, &Mapboxtexture);
+            glDeleteTextures(1, &Mapcircletexture);
+            glDeleteTextures(1, &terraintexture);
+            glDeleteTextures(1, &terraintexture2);
+            if(screentexture > 0)
+                glDeleteTextures(1, &screentexture);
+            if(screentexture2 > 0)
+                glDeleteTextures(1, &screentexture2);
+            glDeleteTextures(1, &hawktexture);
+            glDeleteTextures(1, &logotexture);
+            glDeleteTextures(1, &loadscreentexture);
 
-#ifndef __forceinline
-#  ifdef __GNUC__
-#    define __forceinline inline __attribute__((always_inline))
-#  endif
-#endif
+            Dispose();
+        }
 
-static __forceinline void swap_gl_buffers(void)
-{
-
-    SDL_GL_SwapBuffers();
-
+    protected:
+        void LoadSound(const int sample, const char* filename, float min, float max);
+        bool isMouseHoverRect(int sx, int ex, int sy, int ey);
+    };
 }
 
 #ifdef __GNUC__
@@ -305,9 +312,4 @@ static __forceinline void swap_gl_buffers(void)
 #define LONGLONGCONST(x) (x)
 #endif
 
-extern "C" { void UndefinedSymbolToExposeStubbedCode(void); }
-//#define STUBBED(x) UndefinedSymbolToExposeStubbedCode();
-#define STUBBED(x) { static bool seen = false; if (!seen) { seen = true; fprintf(stderr, "STUBBED: %s at %s:%d\n", x, __FILE__, __LINE__); } }
-//#define STUBBED(x)
-
-#endif
+#endif /* GAME_H */
