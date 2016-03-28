@@ -1,3 +1,24 @@
+/*
+ * Copruright © 2015 - Victor A. Santos <victoraur.santos@gmail.com>
+ * Copyright © 2003, 2010 - Wolfire Games
+ *
+ * This file is part of Ragaru.
+ *
+ * Ragaru is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
+
 #ifndef OPENAL_WRAPPER_H
 #define OPENAL_WRAPPER_H
 
@@ -46,7 +67,7 @@ AL_API signed char OPENAL_GetPaused(int channel);
 AL_API unsigned int OPENAL_GetLoopMode(int channel);
 AL_API signed char OPENAL_IsPlaying(int channel);
 AL_API int OPENAL_PlaySoundEx(int channel, OPENAL_SAMPLE *sptr, OPENAL_DSPUNIT *dsp, signed char startpaused);
-AL_API OPENAL_SAMPLE *OPENAL_Sample_Load(int index, const char *name_or_data, unsigned int mode, int offset, int length);
+AL_API OPENAL_SAMPLE *OPENAL_Sample_Load(int index, std::string name, unsigned int mode, int offset, int length);
 AL_API void OPENAL_Sample_Free(OPENAL_SAMPLE *sptr);
 AL_API signed char OPENAL_Sample_SetMode(OPENAL_SAMPLE *sptr, unsigned int mode);
 AL_API signed char OPENAL_Sample_SetMinMaxDistance(OPENAL_SAMPLE *sptr, float mindist, float maxdist);
@@ -71,4 +92,4 @@ AL_API signed char OPENAL_SetOutput(int outputtype);
 #define OPENAL_Sample_LoadEx(a, b, c, d, e) OPENAL_Sample_Load( a, ConvertFileName( b), c, d, e)
 #define OPENAL_Stream_OpenEx(a, b, c, d) OPENAL_Stream_Open(ConvertFileName(a), b, c, d)
 
-#endif
+#endif /* OPENAL_WRAPPER_H */

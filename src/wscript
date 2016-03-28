@@ -8,9 +8,9 @@ def configure(cnf):
 
     if cnf.options.debug:
         cnf.env.CFLAGS = ['-g3', '-O0', '-Wall']
-        cnf.env.CXXFLAGS = ['-g3', '-O0', '-Wall']
+        cnf.env.CXXFLAGS = ['-g3', '-O0', '-Wall', '-std=c++11']
 
 def build(bld):
-    srcs = 'Config.cpp Options.cpp Log.cpp FileIO.cpp Input.cpp BinIO.cpp BinIO_private.cpp MacCompatibility.cpp Frustum.cpp GameDraw.cpp Game.cpp GameTick.cpp Globals.cpp Lights.cpp Models.cpp Objects.cpp openal_wrapper.cpp Person.cpp Quaternions.cpp Skeleton.cpp Skybox.cpp Sprites.cpp Terrain.cpp Text.cpp TGALoader.cpp Weapons.cpp'
+    srcs = 'Config.cpp Options.cpp Log.cpp FileIO.cpp Input.cpp BinIO.cpp BinIO_private.cpp MacCompatibility.cpp Frustum.cpp GameDraw.cpp Game.cpp GameInput.cpp GameSetup.cpp GameTick.cpp Globals.cpp Lights.cpp Models.cpp Objects.cpp openal_wrapper.cpp Person.cpp Quaternions.cpp Skeleton.cpp Skybox.cpp Sprites.cpp Terrain.cpp Text.cpp TGALoader.cpp Weapons.cpp'
     bld.stlib(source=srcs, target='ragaru', name='libragaru', use=['SDL2', 'GIO', 'OPENAL', 'OGG', 'VORBISFILE', 'GLIBMM'])
     bld.program(source='Main.cpp', target='ragaru', features='c cxx cxxprogram', use=['libragaru', 'GIO', 'M', 'JPEG', 'OGG', 'GLIBMM', 'GLU', 'OPENAL', 'SDL2', 'LIBPNG', 'ZLIB', 'VORBISFILE'], includes='.')

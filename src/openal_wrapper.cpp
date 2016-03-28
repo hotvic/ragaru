@@ -1,30 +1,31 @@
 /*
-Copyright (C) 2003, 2010 - Wolfire Games
+ * Copruright © 2015 - Victor A. Santos <victoraur.santos@gmail.com>
+ * Copyright © 2003, 2010 - Wolfire Games
+ *
+ * This file is part of Ragaru.
+ *
+ * Ragaru is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ */
 
-This file is part of Lugaru.
-
-Lugaru is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
-
-See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
-*/
-
-
+#include "openal_wrapper.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
-#include "openal_wrapper.h"
+
 
 // NOTE:
 // FMOD uses a Left Handed Coordinate system, OpenAL uses a Right Handed
@@ -178,14 +179,14 @@ AL_API signed char OPENAL_Init(int mixrate, int maxsoftwarechannels, unsigned in
     alcMakeContextCurrent(ctx);
     alcProcessContext(ctx);
 
-    bool cmdline(const char *cmd);
+/*    bool cmdline(const char *cmd);
     if (cmdline("openalinfo"))
     {
         printf("AL_VENDOR: %s\n", (char *) alGetString(AL_VENDOR));
         printf("AL_RENDERER: %s\n", (char *) alGetString(AL_RENDERER));
         printf("AL_VERSION: %s\n", (char *) alGetString(AL_VERSION));
         printf("AL_EXTENSIONS: %s\n", (char *) alGetString(AL_EXTENSIONS));
-    }
+    }*/
 
     num_channels = maxsoftwarechannels;
     channels = new OPENAL_Channels[maxsoftwarechannels];
@@ -309,7 +310,7 @@ static void *decode_to_pcm(const char *_fname, ALenum &format, ALsizei &size, AL
     char *fname = (char *) alloca(strlen(_fname) + 16);
     strcpy(fname, _fname);
     char *ptr = strchr(fname, '.');
-    if (ptr) *ptr = NULL;
+    if (ptr) *ptr = '\0';
     strcat(fname, ".ogg");
 
     // just in case...
@@ -391,26 +392,33 @@ static void *decode_to_pcm(const char *_fname, ALenum &format, ALsizei &size, AL
 }
 
 
-AL_API OPENAL_SAMPLE *OPENAL_Sample_Load(int index, const char *name_or_data, unsigned int mode, int offset, int length)
+AL_API OPENAL_SAMPLE *OPENAL_Sample_Load(int index, std::string name, unsigned int mode, int offset, int length)
 {
-    if (!initialized) return NULL;
-    if (index != OPENAL_FREE) return NULL;  // this is all the game does...
-    if (offset != 0) return NULL;  // this is all the game does...
-    if (length != 0) return NULL;  // this is all the game does...
-    if ((mode != OPENAL_HW3D) && (mode != OPENAL_2D)) return NULL;  // this is all the game does...
+    if (!initialized)
+        return NULL;
+    if (index != OPENAL_FREE)
+        return NULL;
+    if (offset != 0)
+        return NULL;
+    if (length != 0)
+        return NULL;
+    if ((mode != OPENAL_HW3D) && (mode != OPENAL_2D))
+        return NULL;
 
     OPENAL_SAMPLE *retval = NULL;
     ALuint bufferName = 0;
     ALenum format = AL_NONE;
     ALsizei size = 0;
     ALuint frequency = 0;
-    void *data = decode_to_pcm(name_or_data, format, size, frequency);
+    void *data = decode_to_pcm(name.c_str(), format, size, frequency);
+
     if (data == NULL)
         return NULL;
 
     ALuint bid = 0;
     alGetError();
     alGenBuffers(1, &bid);
+
     if (alGetError() == AL_NO_ERROR)
     {
         alBufferData(bid, format, data, size, frequency);
@@ -418,13 +426,14 @@ AL_API OPENAL_SAMPLE *OPENAL_Sample_Load(int index, const char *name_or_data, un
         retval->bid = bid;
         retval->mode = OPENAL_LOOP_OFF;
         retval->is2d = (mode == OPENAL_2D);
-        retval->name = new char[strlen(name_or_data) + 1];
+        retval->name = new char[strlen(name.c_str()) + 1];
         if (retval->name)
-            strcpy(retval->name, name_or_data);
+            strcpy(retval->name, name.c_str());
     }
 
     free(data);
-    return(retval);
+
+    return retval;
 }
 
 AL_API void OPENAL_Sample_Free(OPENAL_SAMPLE *sptr)
@@ -547,7 +556,8 @@ AL_API signed char OPENAL_SetPaused(int channel, signed char paused)
 AL_API void OPENAL_SetSFXMasterVolume(int volume)
 {
     if (!initialized) return;
-    ALfloat gain = ((ALfloat) volume) / 255.0f;
+    ALfloat gain = (255 / 100 * (ALfloat) volume) / 255.0f;
+
     alListenerf(AL_GAIN, gain);
 }
 
