@@ -1540,25 +1540,7 @@ namespace Ragaru
         whichlevel = which;
     }
 
-    /*char * Game::MD5_string (unsigned char *string){
-    char temp[50];
-    char temp2[100];
-
-    strcpy(temp2,(const char *)string);
-    strcat((char *)temp2,(const char *)"Lugaru");
-    sprintf (temp, "%d",strlen((char *)temp2));
-    strcat((char *)temp2,temp);
-
-    MD5 context;
-    unsigned int len = strlen ( (char *)temp2);
-
-    context.update   ((unsigned char *)temp2, len);
-    context.finalize ();
-
-    return context.hex_digest();
-    }*/
-
-    void Game::Loadlevel(char* filename)
+    void Game::Loadlevel(const char* filename)
     {
         static int oldlevel;
         int templength;
