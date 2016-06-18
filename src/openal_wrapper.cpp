@@ -406,7 +406,6 @@ AL_API OPENAL_SAMPLE *OPENAL_Sample_Load(int index, std::string name, unsigned i
         return NULL;
 
     OPENAL_SAMPLE *retval = NULL;
-    ALuint bufferName = 0;
     ALenum format = AL_NONE;
     ALsizei size = 0;
     ALuint frequency = 0;
