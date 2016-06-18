@@ -586,7 +586,7 @@ void Person::DoBlood(float howmuch, int which)
             bleeding = howmuch + (float)abs(rand() % 100) / 200 - .25;
             bleedxint = 0;
             bleedyint = 0;
-            int texdetailint = realtexdetail;
+
             if(creature == rabbittype)
                 while(bloodText[bleedxint * 512 * 3 + bleedyint * 3 + 0] > which + 4 ||
                       bloodText[bleedxint * 512 * 3 + bleedyint * 3 + 0] < which - 4 || bleedxint < 10 ||
@@ -920,7 +920,7 @@ void Person::DoBloodBig(float howmuch, int which)
 
 bool Person::DoBloodBigWhere(float howmuch, int which, XYZ where)
 {
-    static int bleedxint, bleedyint, i, j;
+    static int i, j;
     static XYZ bloodvel;
     static XYZ startpoint, endpoint, colpoint, movepoint;
     static float rotationpoint;
@@ -1238,19 +1238,10 @@ bool Person::DoBloodBigWhere(float howmuch, int which, XYZ where)
 
 void Person::DoMipmaps(int howmanylevels, float startx, float endx, float starty, float endy)
 {
-    int i, j, k;
-    static float temp;
-    static int bytesPerPixel = 3;
-    static int newsize, totalsize, rowsize, bigstep, smallstep, sum;
+    int i, j;
+    static int newsize;
     static int newstartx, newstarty, newendx, newendy;
-    static int newnewstartx, newnewstarty, newnewendx, newnewendy;
-    static int which;
-    static float sizemult;
-    /*
-    for(i=0;i<skeleton.skinsize*skeleton.skinsize*bytesPerPixel;i++){
-    texture[i]=skeleton.skinText[i];
-    }
-    */
+
     if((!osx || howmanylevels)) {
 
         if(startx < 0)
@@ -2145,6 +2136,7 @@ void Person::FootLand(int which, float opacity)
     static XYZ terrainlight;
     static XYZ footvel, footpoint;
     if(opacity >= 1 || skiddelay <= 0)
+    {
         if(opacity > 1) {
             footvel = 0;
             if(which == 0)
@@ -2251,6 +2243,7 @@ void Person::FootLand(int which, float opacity)
             if(findDistancefast(&footpoint, &viewer) < viewdistance * viewdistance / 4)
                 sprites.MakeSprite(cloudsprite, footpoint, footvel * .6, 1, 1, 1, .5, .2 * opacity);
         }
+    }
 }
 
 void Person::Puff(int whichlabel)
@@ -2807,7 +2800,6 @@ void Person::DoAnimations()
                 }
             }
 
-            static bool willwork;
             if(targetanimation == crouchremoveknifeanim && animation[targetanimation].label[currentframe] == 5) {
                 for(i = 0; i < weapons.numweapons; i++) {
                     bool willwork = 1;
@@ -5557,7 +5549,6 @@ void Person::DoAnimations()
                         OPENAL_SetPaused(channels[whooshsound], false);
                 }
                 if(targetanimation == sneakattackanim) {
-                    float ycoords = oldcoords.y;
                     currentanimation = getCrouch();
                     targetanimation = getCrouch();
                     targetframe = 1;
@@ -5575,7 +5566,6 @@ void Person::DoAnimations()
                     lastfeint = 0;
                 }
                 if(targetanimation == knifesneakattackanim || targetanimation == swordsneakattackanim) {
-                    float ycoords = oldcoords.y;
                     targetanimation = getIdle();
                     targetframe = 0;
                     if(onterrain)
@@ -7206,10 +7196,6 @@ void Person::DoStuff()
         }
         if(skeleton.freefall == 0)
             freefall = 0;
-
-        if(!isnormal(velocity.x) && velocity.x) {
-            int xy = 1;
-        }
     }
 
     if(aitype != passivetype || skeleton.free == 1)
@@ -8169,7 +8155,7 @@ int Person::DrawSkeleton()
         static float M[16];
         static int i, j, k;
         static int weaponattachmuscle;
-        static int weaponrotatemuscle, weaponrotatemuscle2;
+        static int weaponrotatemuscle;
         static XYZ weaponpoint;
         static int start, endthing;
         if((dead != 2 || skeleton.free != 2) && updatedelay <= 0) {
@@ -9556,7 +9542,7 @@ Person::Person()
     facing = 0;
 
     bleeding = 0;
-    bleedx = 0, bleedy;
+    bleedx = 0;
     direction = 0;
     texupdatedelay = 0;
 
