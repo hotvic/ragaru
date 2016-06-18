@@ -38,22 +38,12 @@ extern "C" {
 
 using namespace std;
 
-unsigned int resolutionDepths[8][2] = { 0 };
-
-
-static void GLAPIENTRY glDeleteTextures_doNothing(GLsizei n, const GLuint* textures)
-{
-    // no-op.
-}
-
-static bool fullscreen = true;
+unsigned int resolutionDepths[8][2] = {{0}};
 
 // Menu defs
 enum { kFileQuit = 1 };
 
 enum { kForegroundSleep = 10, kBackgroundSleep = 10000 };
-
-const RGBColor rgbBlack = { 0x0000, 0x0000, 0x0000 };
 
 GLuint gFontList;
 char gcstrMode[256] = "";
@@ -73,7 +63,6 @@ void DrawGL(Ragaru::Game& game)
 static void sdlEventProc(const SDL_Event& e, Ragaru::Game& game)
 {
     bool skipkey = false;
-    SDL_Keymod mod;
 
     switch(e.type) {
     case SDL_MOUSEMOTION:
@@ -352,7 +341,6 @@ static bool load_png(const char* file_name, TGAImageRec& tex)
     png_infop info_ptr = NULL;
     png_uint_32 width, height;
     int bit_depth, color_type, interlace_type;
-    png_byte** rows = NULL;
     bool retval = false;
     png_byte** row_pointers = NULL;
     FILE* fp = fopen(file_name, "rb");
