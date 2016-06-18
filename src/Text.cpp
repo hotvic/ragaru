@@ -27,8 +27,6 @@ extern TGAImageRec texture;
 
 void Text::LoadFontTexture(const char* fileName)
 {
-    GLuint type;
-
     LOG->LOG("Loading font texture... %s", fileName);
 
     Ragaru::Game::LoadTexture(fileName, &FontTexture, false, false);
