@@ -28,9 +28,7 @@ def configure(cnf):
     cnf.check_cfg(package='libpng', args='--cflags --libs', mandatory=True)
     cnf.check_cfg(package='vorbisfile', args='--cflags --libs', mandatory=True)
 
-    cnf.check_cc(type_name='uint32_t', header='stdint.h', mandatory=True)
     cnf.check_cc(type_name='uint64_t', header='stdint.h', mandatory=True)
-    cnf.check_cc(type_name='int32_t', header='stdint.h', mandatory=True)
     cnf.check_cc(type_name='int64_t', header='stdint.h', mandatory=True)
 
     cnf.recurse('src')
