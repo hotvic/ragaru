@@ -69,7 +69,7 @@ void Objects::SphereCheckPossible(XYZ* p1, float radius)
 void Objects::Draw()
 {
     static float distance;
-    static int i, j;
+    static int i;
     static XYZ moved, terrainlight;
     bool hidden;
 
@@ -951,8 +951,7 @@ void Objects::DoStuff()
 
 void Objects::DoShadows()
 {
-    int i, j, k, l, todivide;
-    static float brightness, total;
+    int i, j, k, l;
     static XYZ testpoint, testpoint2, terrainpoint, lightloc, col;
     lightloc = light.location;
     if(!skyboxtexture)
