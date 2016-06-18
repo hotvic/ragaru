@@ -304,7 +304,7 @@ int Model::SphereCheck(XYZ* p1, float radius, XYZ* p, XYZ* move, float* rotate)
 
 int Model::SphereCheckPossible(XYZ* p1, float radius, XYZ* move, float* rotate)
 {
-    static int i, j;
+    static int j;
     static float distance;
     static float olddistance;
     static int intersecting;
@@ -516,7 +516,6 @@ void Model::UpdateVertexArrayNoTexNoNorm()
 bool Model::loadnotex(const char* filename)
 {
     FILE* tfile;
-    long i;
 
     int oldvertexNum, oldTriangleNum;
     oldvertexNum = vertexNum;
@@ -585,7 +584,6 @@ bool Model::loadnotex(const char* filename)
 bool Model::load(const char* filename, bool texture)
 {
     FILE* tfile;
-    long i;
 
     LOG->LOG("Loading model... %s", filename);
 
@@ -1154,7 +1152,6 @@ void Model::drawdecals(GLuint shadowtexture, GLuint bloodtexture, GLuint bloodte
     if(config.video_decals) {
         if (type != decalstype) return;
 
-        static float distancemult;
         static int lasttype;
         static float viewdistsquared;
         static bool blend;
