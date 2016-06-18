@@ -37,7 +37,6 @@ void Weapons::DoStuff()
     static float elasticity = .4;
     static XYZ bounceness;
     static float frictionness;
-    static float moveamount;
     int closestline;
     static float closestdistance;
     static float distance;
@@ -45,7 +44,6 @@ void Weapons::DoStuff()
     static XYZ closestpoint;
     static XYZ closestswordpoint;
     static XYZ extramove;
-    static float proportion;
     static float tempmult;
 
     // Move
@@ -212,7 +210,6 @@ void Weapons::DoStuff()
                             (player[j].targetanimation != backhandspringanim && player[j].targetanimation != rollanim &&
                              player[j].targetanimation != flipanim && rand() % 2 == 0)) &&
                            !missed[i]) {
-                            bool caught = 0;
                             if((player[j].creature == wolftype && rand() % 3 != 0 && player[j].weaponactive == -1 &&
                                 (player[j].isIdle() || player[j].isRun() || player[j].targetanimation == walkanim)) ||
                                (player[j].creature == rabbittype && rand() % 2 == 0 &&
@@ -345,7 +342,6 @@ void Weapons::DoStuff()
                     glPopMatrix();
                     position[i] -= tippoint[i] * .15;
                     XYZ temppoint1, temppoint2, tempforward;
-                    float distance;
 
                     rotation3[i] = 0;
                     smallrotation[i] = 90;
