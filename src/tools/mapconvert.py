@@ -90,8 +90,8 @@ def writemap(mapname, m):
                 f.write(struct.pack('>fff', m['hotspots'].pos[i].x, m['hotspots'].pos[i].y, m['hotspots'].pos[i].z))
 
                 for c in m['hotspots'].text[i]:
-                    f.write(struct.pack('>c', c))
-                f.write(struct.pack('>c', '\0'))
+                    f.write(struct.pack('>c', c.encode('ascii')))
+                f.write(struct.pack('>c', '\0'.encode('ascii')))
 
         f.write(struct.pack('>i', m['numpathpoints']))
         if m['numpathpoints']:
@@ -123,8 +123,8 @@ def writemap(mapname, m):
 
                 clothes = fixclothesname(player.clothes[j])
                 for c in clothes:
-                    f.write(struct.pack('>c', c))
-                f.write(struct.pack('>c', '\0'))
+                    f.write(struct.pack('>c', c.encode('ascii')))
+                f.write(struct.pack('>c', '\0'.encode('ascii')))
 
             f.write(struct.pack('>i', player.numweapons))
             for j in range(player.numweapons):
