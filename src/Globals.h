@@ -203,7 +203,6 @@ extern float accountcampaignscore[10];
 extern float accountcampaigntime[10];
 extern int accountcampaignchoicesmade[10];
 extern int accountcampaignchoices[10][5000];
-extern TGAImageRec texture;
 extern int whichjointstartarray[26];
 extern int whichjointendarray[26];
 extern int numsounds;

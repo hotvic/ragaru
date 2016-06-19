@@ -25,7 +25,6 @@
 #include "Quaternions.h"
 #include "Quaternions.h"
 #include "gamegl.h"
-#include "TGALoader.h"
 
 class Text
 {

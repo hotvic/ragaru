@@ -178,7 +178,6 @@ bool tiltweird = 0;
 bool midweird = 0;
 bool proportionweird = 0;
 bool vertexweird[6] = { 0 };
-TGAImageRec texture;
 
 int oldbonus = 0;
 int bonus = 0;

@@ -22,8 +22,6 @@
 #ifndef GAME_H
 #define GAME_H
 
-
-#include "TGALoader.h"
 #include "Input.h"
 #include "Terrain.h"
 #include "Skybox.h"

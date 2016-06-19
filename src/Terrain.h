@@ -25,7 +25,6 @@
 #include "gamegl.h"
 #include "Frustum.h"
 #include "Lights.h"
-#include "TGALoader.h"
 #include "Quaternions.h"
 #include "Quaternions.h"
 

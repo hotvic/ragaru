@@ -23,16 +23,13 @@
 #include "Game.h"
 #include "Globals.h"
 
- extern TGAImageRec texture;
-
- void Text::LoadFontTexture(const char* fileName)
- {
+void Text::LoadFontTexture(const char* fileName)
+{
     LOG->LOG("Loading font texture... %s", fileName);
 
     Ragaru::Game::LoadTexture(fileName, &FontTexture, false, false);
 
-    if (base)
-    {
+    if (base) {
         glDeleteLists(base, 512);
         base = 0;
     }
@@ -43,8 +40,7 @@ void Text::BuildFont()
     float cx;
     float cy;
 
-    if (base)
-    {
+    if (base) {
         LOG->LOG("Font already created...");
         return;
     }

@@ -63,7 +63,6 @@ extern float multiplier;
 extern int netdatanew;
 extern float mapinfo;
 extern bool stillloading;
-extern TGAImageRec texture;
 extern short vRefNum;
 extern long dirID;
 extern int mainmenu;

@@ -23,7 +23,6 @@
 #define SKYBOX_H
 
 #include "Quaternions.h"
-#include "TGALoader.h"
 #include "Quaternions.h"
 #include "gamegl.h"
 

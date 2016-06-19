@@ -382,8 +382,6 @@ namespace Ragaru
 
         stillloading = 1;
 
-        texture.data = (GLubyte*) malloc(1024 * 1024 * 4);
-
         int temptexdetail = texdetail;
         texdetail = 1;
         text.LoadFontTexture("font.png");
@@ -649,12 +647,6 @@ namespace Ragaru
         }
 
         OPENAL_Close();
-
-        if (texture.data)
-        {
-            free(texture.data);
-        }
-        texture.data = 0;
     }
 
     void Game::LoadSound(const int sample, const char* filename, float min, float max)
@@ -816,7 +808,7 @@ namespace Ragaru
         {
             if ((i + 1) % 4 || type == GL_RGB)
             {
-                array[tempnum] = texture.data[i];
+                array[tempnum] = ((GLubyte*) surface->pixels)[i];
                 tempnum++;
             }
         }
@@ -845,7 +837,7 @@ namespace Ragaru
         {
             if ((i + 1) % 4 || surface->format->BytesPerPixel == 3)
             {
-                array[tempnum] = texture.data[i];
+                array[tempnum] = ((GLubyte*) surface->pixels)[i];
                 tempnum++;
             }
         }
