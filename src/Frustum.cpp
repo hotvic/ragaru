@@ -29,7 +29,6 @@ void FRUSTUM::GetFrustum()
     static float projmatrix[16];
     static float mvmatrix[16];
     static float clip[16];
-    static float t;
 
     glGetFloatv(GL_PROJECTION_MATRIX, projmatrix);
     glGetFloatv(GL_MODELVIEW_MATRIX, mvmatrix);
