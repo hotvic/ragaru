@@ -26,9 +26,6 @@
 #include "Options.h"
 #include <glibmm.h>
 
-static bool load_png(const char* fname, TGAImageRec& tex);
-static bool save_image(const char* fname);
-static bool save_png(const char* fname);
 void ShutdownDSp();
 void DrawGL(Ragaru::Game& game);
 void CreateGLWindow(void);
