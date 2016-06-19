@@ -23,10 +23,10 @@
 #include "Game.h"
 #include "Globals.h"
 
-extern TGAImageRec texture;
+ extern TGAImageRec texture;
 
-void Text::LoadFontTexture(const char* fileName)
-{
+ void Text::LoadFontTexture(const char* fileName)
+ {
     LOG->LOG("Loading font texture... %s", fileName);
 
     Ragaru::Game::LoadTexture(fileName, &FontTexture, false, false);
@@ -38,41 +38,39 @@ void Text::LoadFontTexture(const char* fileName)
     }
 }
 
-void Text::BuildFont() // Build Our Font Display List
+void Text::BuildFont() 
 {
-    float cx; // Holds Our X Character Coord
-    float cy; // Holds Our Y Character Coord
-    int loop;
+    float cx;
+    float cy;
 
-    if(base) {
+    if (base)
+    {
         LOG->LOG("Font already created...");
         return;
     }
 
-    //	base=glGenLists(256);								// Creating 256 Display Lists
     base = glGenLists(512);                    // Creating 256 Display Lists
     glBindTexture(GL_TEXTURE_2D, FontTexture); // Select Our Font Texture
-    for(loop = 0; loop < 512; loop++)          // Loop Through All 256 Lists
+
+    for (int i = 0; i < 512; i++)              // Loop Through All 256 Lists
     {
-        if(loop < 256) {
-            cx = float(loop % 16) / 16.0f; // X Position Of Current Character
-            cy = float(loop / 16) / 16.0f; // Y Position Of Current Character
+        if (i < 256)
+        {
+            cx = float(i % 16) / 16.0f;     // X Position Of Current Character
+            cy = float(i / 16) / 16.0f;     // Y Position Of Current Character
         } else {
-            cx = float((loop - 256) % 16) / 16.0f; // X Position Of Current Character
-            cy = float((loop - 256) / 16) / 16.0f; // Y Position Of Current Character
+            cx = float((i - 256) % 16) / 16.0f; // X Position Of Current Character
+            cy = float((i - 256) / 16) / 16.0f; // Y Position Of Current Character
         }
-        glNewList(base + loop, GL_COMPILE);                  // Start Building A List
+        glNewList(base + i, GL_COMPILE);                  // Start Building A List
         glBegin(GL_QUADS);                                   // Use A Quad For Each Character
-        glTexCoord2f(cx, 1 - cy - 0.0625f + .001);           // Texture Coord (Bottom Left)
-        glVertex2i(0, 0);                                    // Vertex Coord (Bottom Left)
-        glTexCoord2f(cx + 0.0625f, 1 - cy - 0.0625f + .001); // Texture Coord (Bottom Right)
-        glVertex2i(16, 0);                                   // Vertex Coord (Bottom Right)
-        glTexCoord2f(cx + 0.0625f, 1 - cy - .001);           // Texture Coord (Top Right)
-        glVertex2i(16, 16);                                  // Vertex Coord (Top Right)
-        glTexCoord2f(cx, 1 - cy - +.001);                    // Texture Coord (Top Left)
-        glVertex2i(0, 16);                                   // Vertex Coord (Top Left)
-        glEnd();                                             // Done Building Our Quad (Character)
-        if(loop < 256)
+            glTexCoord2f(cx, 1 - cy - 0.0625f + .001);           glVertex2i(16,  0);
+            glTexCoord2f(cx + 0.0625f, 1 - cy - 0.0625f + .001); glVertex2i( 0,  0);
+            glTexCoord2f(cx + 0.0625f, 1 - cy - .001);           glVertex2i( 0, 16);
+            glTexCoord2f(cx, 1 - cy - +.001);                    glVertex2i(16, 16);
+        glEnd();
+
+        if (i < 256)
             glTranslated(10, 0, 0); // Move To The Right Of The Character
         else
             glTranslated(8, 0, 0); // Move To The Right Of The Character

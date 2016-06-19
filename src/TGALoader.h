@@ -35,6 +35,4 @@ typedef struct TGAImageRec
     GLuint sizeY;
 } TGAImageRec;
 
-bool upload_image(const char* fileName, bool hasalpha);
-
 #endif /* TGA_LOADER_H */

@@ -40,6 +40,7 @@
 #include "gamegl.h"
 #include <fstream>
 #include <SDL.h>
+#include <SDL_image.h>
 
 extern GLuint rabbittexture;
 
@@ -239,6 +240,7 @@ namespace Ragaru
         bool Setup();
         void DoMouse();
         long long MD5_string(char* string);
+        static SDL_Surface* LoadImage(std::string filename);
         static void LoadTexture(const char* fileName, GLuint* textureid, int mipmap, bool hasalpha);
         static void LoadTextureSave(const char* fileName, GLuint* textureid, int mipmap, GLubyte* array, int* skinsize);
         void LoadSave(const char* fileName, GLuint* textureid, bool mipmap, GLubyte* array, int* skinsize);

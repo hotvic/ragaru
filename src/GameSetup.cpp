@@ -47,13 +47,25 @@ namespace Ragaru
         numplayers = 1;
 
         // Initialize SDL
-        if(SDL_Init( SDL_INIT_VIDEO ) < 0) {
+        if (SDL_Init( SDL_INIT_VIDEO ) < 0)
+        {
             LOG->ERR("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
             return false;
         }
 
-        if(SDL_GL_LoadLibrary(NULL) == -1) {
+        if (SDL_GL_LoadLibrary(NULL) == -1)
+        {
             LOG->ERR("SDL_GL_LoadLibrary() failed: %s\n", SDL_GetError());
+            SDL_Quit();
+            return false;
+        }
+
+        // Initialize SDL_image
+        int img_flags = IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG);
+        if (!(img_flags & IMG_INIT_PNG) || !(img_flags & IMG_INIT_JPG))
+        {
+            LOG->ERR("IMG_Init failed! SDL_Error: %s\n", SDL_GetError());
+            IMG_Quit();
             SDL_Quit();
             return false;
         }
@@ -159,6 +171,7 @@ namespace Ragaru
     void Game::CleanUp()
     {
         SDL_GL_DeleteContext(this->glcontext);
+        IMG_Quit();
         SDL_Quit();
     }
 }

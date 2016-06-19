@@ -25,7 +25,7 @@ def configure(cnf):
     cnf.check_cfg(package='ogg', args='--cflags --libs', mandatory=True)
     cnf.check_cfg(package='openal', args='--cflags --libs', mandatory=True)
     cnf.check_cfg(package='sdl2', args='--cflags --libs', madatory=True)
-    cnf.check_cfg(package='libpng', args='--cflags --libs', mandatory=True)
+    cnf.check_cfg(package='SDL2_image', uselib_store="SDLIMAGE", args='--cflags --libs', madatory=True)
     cnf.check_cfg(package='vorbisfile', args='--cflags --libs', mandatory=True)
 
     cnf.check_cc(type_name='uint64_t', header='stdint.h', mandatory=True)

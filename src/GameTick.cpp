@@ -68,7 +68,8 @@ void Screenshot(void)
 
     mkdir("Screenshots", S_IRWXU);
 
-    ScreenShot(temp);
+    LOG->ERR("Not Implemented yet! Screenshot\n");
+    /* ScreenShot(temp); */
 }
 
 namespace Ragaru

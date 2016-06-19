@@ -1363,7 +1363,7 @@ void Game::InitGame()
 
     int temptexdetail = texdetail;
     texdetail = 1;
-    text.LoadFontTexture("textures/font.png");
+    text.LoadFontTexture("font.png");
     text.BuildFont();
     texdetail = temptexdetail;
 
@@ -1530,22 +1530,21 @@ void Game::InitGame()
 
     FadeLoadingScreen(90);
 
-    LoadTexture("textures/cursor.png", &cursortexture, 0, 1);
+    LoadTexture("cursor.png", &cursortexture, 0, 1);
 
-    LoadTexture("textures/mapcircle.png", &Mapcircletexture, 0, 1);
-    LoadTexture("textures/mapbox.png", &Mapboxtexture, 0, 1);
-    LoadTexture("textures/maparrow.png", &Maparrowtexture, 0, 1);
+    LoadTexture("mapcircle.png", &Mapcircletexture, 0, 1);
+    LoadTexture("mapbox.png", &Mapboxtexture, 0, 1);
+    LoadTexture("maparrow.png", &Maparrowtexture, 0, 1);
 
     temptexdetail = texdetail;
     if(texdetail > 2)
         texdetail = 2;
-    LoadTexture("textures/lugaru.png", &Mainmenuitems[0], 0, 0);
-    LoadTexture("textures/newgame.png", &Mainmenuitems[1], 0, 0);
-    LoadTexture("textures/options.png", &Mainmenuitems[2], 0, 0);
-    LoadTexture("textures/quit.png", &Mainmenuitems[3], 0, 0);
-    LoadTexture("textures/world.png", &Mainmenuitems[7], 0, 0);
-    LoadTexture("textures/eyelid.png", &Mainmenuitems[4], 0, 1);
-    // LoadTexture("textures/eye.jpg",&Mainmenuitems[5],0,1);
+    LoadTexture("lugaru.png", &Mainmenuitems[0], 0, 0);
+    LoadTexture("newgame.png", &Mainmenuitems[1], 0, 0);
+    LoadTexture("options.png", &Mainmenuitems[2], 0, 0);
+    LoadTexture("quit.png", &Mainmenuitems[3], 0, 0);
+    LoadTexture("world.png", &Mainmenuitems[7], 0, 0);
+    LoadTexture("eyelid.png", &Mainmenuitems[4], 0, 1);
     texdetail = temptexdetail;
 
     loaddistrib = 0;
@@ -1618,7 +1617,7 @@ void Game::LoadStuff()
 
     temptexdetail = texdetail;
     texdetail = 1;
-    text.LoadFontTexture("textures/font.png");
+    text.LoadFontTexture("font.png");
     text.BuildFont();
     texdetail = temptexdetail;
 

@@ -399,7 +399,8 @@ void Terrain::UpdateVertexArray(int whichx, int whichy)
 
 bool Terrain::load(const char* filename)
 {
-    static long i, j;
+    LOG->ERR("Not Implemented yet! Terrain::load\n");
+    /*static long i, j;
     static long x, y;
     static float patch_size;
 
@@ -430,35 +431,17 @@ bool Terrain::load(const char* filename)
 
     texdetail = temptexdetail;
 
-    size = 128;
-    if(1 == 1) {
-        /*if ( texture.bpp == 24 )
-        type = GL_RGB;
-        else
-        type = GL_RGBA;
+    size = texture.sizeX;
 
-        glPixelStorei( GL_UNPACK_ALIGNMENT, 1 );
-
-        if(!terraintexture)glGenTextures( 1, &terraintexture );
-        glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-
-        glBindTexture( GL_TEXTURE_2D, terraintexture);
-        //glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST );
-        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-
-        gluBuild2DMipmaps( GL_TEXTURE_2D, type, texture.sizeX, texture.sizeY, type, GL_UNSIGNED_BYTE, texture.data );
-        */
-
-        size = texture.sizeX;
-
-        for(i = 0; i < size; i++) {
-            for(j = 0; j < size; j++) {
-                heightmap[size - 1 - i][j] =
-                    (float)((texture.data[(i + (j * size)) * texture.bpp / 8])) / 5 / terraindetail;
-            }
+    for (i = 0; i < size; i++)
+    {
+        for (j = 0; j < size; j++)
+        {
+            heightmap[size - 1 - i][j] = (float)((texture.data[(i + (j * size)) * texture.bpp / 8])) / 5 / terraindetail;
         }
     }
-    if(visibleloading)
+
+    if (visibleloading)
         pgame->LoadingScreen();
 
     float slopeness;
@@ -532,27 +515,6 @@ bool Terrain::load(const char* filename)
     }
     if(visibleloading)
         pgame->LoadingScreen();
-
-    /*float total;
-    int todivide;
-    //Smooth opacityother
-    for(i=0;i<size;i++){
-    for(j=0;j<size;j++){
-    total=0;
-    todivide=0;
-    if(i!=0){				total+=opacityother[j][i-1]; todivide++;}
-    if(i!=size-1){				total+=opacityother[j][i+1]; todivide++;}
-    if(j!=0){				total+=opacityother[j-1][i]; todivide++;}
-    if(j!=size-1){				total+=opacityother[j+1][i]; todivide++;}
-    if(i!=0&&j!=0){			total+=opacityother[j-1][i-1]; todivide++;}
-    if(i!=size-1&&j!=0){		total+=opacityother[j-1][i+1]; todivide++;}
-    if(j!=size-1&&i!=size-1){		total+=opacityother[j+1][i+1]; todivide++;}
-    if(j!=size-1&&i!=0){		total+=opacityother[j+1][i-1]; todivide++;}
-    total+=opacityother[j][i]; todivide++;
-
-    opacityother[j][i]=total/(float)todivide;
-    }
-    }*/
 
     for(i = 0; i < size; i++) {
         for(j = 0; j < size; j++) {
@@ -715,16 +677,9 @@ bool Terrain::load(const char* filename)
 
     patch_size = size / subdivision;
     patch_elements = (patch_size) * (patch_size)*54;
-    CalculateNormals();
-    /*DoShadows();
+    CalculateNormals();*/
 
-    for(i=0;i<subdivision;i++){
-    for(j=0;j<subdivision;j++){
-    UpdateVertexArray(i,j);
-    }
-    }*/
-
-    return 1;
+    return true;
 }
 
 void Terrain::CalculateNormals()

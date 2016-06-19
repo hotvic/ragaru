@@ -742,65 +742,77 @@ namespace Ragaru
         OPENAL_Sample_SetMode(samp[whooshsound], OPENAL_LOOP_NORMAL);
     }
 
+    SDL_Surface* Game::LoadImage(std::string filename)
+    {
+        if (visibleloading)
+        {
+            loadscreencolor = 1;
+            pgame->LoadingScreen();
+        }
+
+        return IMG_Load(filename.c_str());
+    }
+
     void Game::LoadTexture(const char* filename, GLuint* textureid, int mipmap, bool hasalpha)
     {
-        GLuint type;
-
         LOG->LOG("Loading texture... %s", filename);
 
         std::string name = locateDataFile("textures", filename);
 
-        upload_image(name.c_str(), hasalpha);
+        SDL_Surface* surface = LoadImage(name);
 
         // Alpha channel?
-        type = texture.bpp == 24 ? GL_RGB : GL_RGBA;
+        GLuint type = surface->format->BitsPerPixel == 24 ? GL_RGB : GL_RGBA;
 
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-        if (!*textureid) glGenTextures(1, textureid);
+        if (!*textureid)
+            glGenTextures(1, textureid);
 
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         glBindTexture(GL_TEXTURE_2D, *textureid);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        if (config.video_trilinear) if (mipmap) glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        if (!config.video_trilinear) if (mipmap) glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-        if (!mipmap) glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        if (config.video_trilinear && mipmap)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        if (!config.video_trilinear && mipmap)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+        if (!mipmap)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-        gluBuild2DMipmaps(GL_TEXTURE_2D, type, texture.sizeX, texture.sizeY, type, GL_UNSIGNED_BYTE, texture.data);
+        gluBuild2DMipmaps(GL_TEXTURE_2D, type, surface->w, surface->h, type, GL_UNSIGNED_BYTE, surface->pixels);
     }
 
     void Game::LoadTextureSave(const char* filename, GLuint* textureid, int mipmap, GLubyte* array, int* skinsize)
     {
-        GLuint type;
-        int bytesPerPixel;
-
         LOG->LOG("Loading texture... %s", filename);
 
         std::string name = locateDataFile("textures", filename);
 
-        upload_image(name.c_str(), 0);
-
-        bytesPerPixel = texture.bpp / 8;
+        SDL_Surface* surface = LoadImage(name);
 
         // Alpha channel?
-        type = texture.bpp == 24 ? GL_RGB : GL_RGBA;
+        GLuint type = surface->format->BitsPerPixel == 24 ? GL_RGB : GL_RGBA;
 
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-        if (!*textureid) glGenTextures(1, textureid);
+        if (!*textureid)
+            glGenTextures(1, textureid);
 
         glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
         glBindTexture(GL_TEXTURE_2D, *textureid);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        if (config.video_trilinear) if (mipmap) glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        if (!config.video_trilinear) if (mipmap) glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-        if (!mipmap) glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        if (config.video_trilinear && mipmap)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        if (!config.video_trilinear && mipmap)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+        if (!mipmap)
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
         int tempnum = 0;
-        for (int i = 0; i < (int)(texture.sizeY * texture.sizeX * bytesPerPixel); i++)
+        for (int i = 0; i < (int)(surface->w * surface->h * surface->format->BytesPerPixel); i++)
         {
             if ((i + 1) % 4 || type == GL_RGB)
             {
@@ -809,15 +821,13 @@ namespace Ragaru
             }
         }
 
-        *skinsize = texture.sizeX;
+        *skinsize = surface->w;
 
-        gluBuild2DMipmaps(GL_TEXTURE_2D, type, texture.sizeX, texture.sizeY, GL_RGB, GL_UNSIGNED_BYTE, array);
+        gluBuild2DMipmaps(GL_TEXTURE_2D, type, surface->w, surface->h, GL_RGB, GL_UNSIGNED_BYTE, array);
     }
 
     void Game::LoadSave(const char* filename, GLuint* textureid, bool mipmap, GLubyte* array, int *skinsize)
     {
-        int bytesPerPixel;
-
         LOG->LOG("LoadSave: Loading... %s", filename);
 
         // Load Image
@@ -826,16 +836,14 @@ namespace Ragaru
 
         std::string name = locateDataFile("textures", filename);
 
-        upload_image(name.c_str(), 0);
+        SDL_Surface* surface = LoadImage(name);
 
         texdetail = temptexdetail;
 
-        bytesPerPixel = texture.bpp / 8;
-
         int tempnum = 0;
-        for (int i = 0; i < (int)(texture.sizeY * texture.sizeX * bytesPerPixel); i++)
+        for (int i = 0; i < (int)(surface->w * surface->h * surface->format->BytesPerPixel); i++)
         {
-            if ((i + 1) % 4 || bytesPerPixel == 3)
+            if ((i + 1) % 4 || surface->format->BytesPerPixel == 3)
             {
                 array[tempnum] = texture.data[i];
                 tempnum++;
@@ -1267,7 +1275,8 @@ namespace Ragaru
 
     bool Game::AddClothes(const char* filename, GLuint* textureid, bool mipmap, GLubyte* array, int* skinsize)
     {
-        std::string name = locateDataFile("textures", filename);
+        LOG->ERR("Not Implemented yet! Game::AddClothes\n");
+        /*std::string name = locateDataFile("textures", filename);
 
         // Load Image
         bool opened = upload_image(name.c_str(), 1);
@@ -1305,7 +1314,7 @@ namespace Ragaru
                 }
             }
         }
-        else return false;
+        else return false;*/
 
         return true;
     }
