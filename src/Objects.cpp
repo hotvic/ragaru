@@ -675,27 +675,27 @@ void Objects::MakeObject(int atype, XYZ where, float arotation, float ascale)
         roty[numobjects] = 0;
 
         if(atype == boxtype)
-            model[numobjects].loaddecal((char*)"Models/box.solid", 0);
+            model[numobjects].loaddecal((char*)"box.solid", 0);
         if(atype == cooltype)
-            model[numobjects].loaddecal((char*)"Models/cool.solid", 0);
+            model[numobjects].loaddecal((char*)"cool.solid", 0);
         if(atype == walltype)
-            model[numobjects].loaddecal((char*)"Models/wall.solid", 0);
+            model[numobjects].loaddecal((char*)"wall.solid", 0);
         if(atype == tunneltype)
-            model[numobjects].loaddecal((char*)"Models/tunnel.solid", 0);
+            model[numobjects].loaddecal((char*)"tunnel.solid", 0);
         if(atype == chimneytype)
-            model[numobjects].loaddecal((char*)"Models/chimney.solid", 0);
+            model[numobjects].loaddecal((char*)"chimney.solid", 0);
         if(atype == spiketype)
-            model[numobjects].load((char*)"Models/spike.solid", 0);
+            model[numobjects].load((char*)"spike.solid", 0);
         if(atype == weirdtype)
-            model[numobjects].loaddecal((char*)"Models/weird.solid", 0);
+            model[numobjects].loaddecal((char*)"weird.solid", 0);
         if(atype == rocktype)
-            model[numobjects].loaddecal((char*)"Models/rock.solid", 0);
+            model[numobjects].loaddecal((char*)"rock.solid", 0);
         if(atype == treetrunktype)
-            model[numobjects].load((char*)"Models/treetrunk.solid", 0);
+            model[numobjects].load((char*)"treetrunk.solid", 0);
         if(atype == treeleavestype)
-            model[numobjects].load((char*)"Models/leaves.solid", 0);
+            model[numobjects].load((char*)"leaves.solid", 0);
         if(atype == bushtype)
-            model[numobjects].load((char*)"Models/bush.solid", 0);
+            model[numobjects].load((char*)"bush.solid", 0);
 
         if(atype == boxtype)
             friction[numobjects] = 1.5;
@@ -723,7 +723,7 @@ void Objects::MakeObject(int atype, XYZ where, float arotation, float ascale)
             friction[numobjects] = 0;
 
         if(atype == platformtype) {
-            model[numobjects].loaddecal((char*)"Models/platform.solid", 0);
+            model[numobjects].loaddecal((char*)"platform.solid", 0);
             model[numobjects].Rotate(90, 0, 0);
         }
 
@@ -798,27 +798,27 @@ void Objects::MakeObject(int atype, XYZ where, float arotation, float arotation2
         roty[numobjects] = 0;
 
         if(atype == boxtype)
-            model[numobjects].loaddecal((char*)"Models/box.solid", 0);
+            model[numobjects].loaddecal((char*)"box.solid", 0);
         if(atype == cooltype)
-            model[numobjects].loaddecal((char*)"Models/cool.solid", 0);
+            model[numobjects].loaddecal((char*)"cool.solid", 0);
         if(atype == walltype)
-            model[numobjects].loaddecal((char*)"Models/wall.solid", 0);
+            model[numobjects].loaddecal((char*)"wall.solid", 0);
         if(atype == tunneltype)
-            model[numobjects].loaddecal((char*)"Models/tunnel.solid", 0);
+            model[numobjects].loaddecal((char*)"tunnel.solid", 0);
         if(atype == chimneytype)
-            model[numobjects].loaddecal((char*)"Models/chimney.solid", 0);
+            model[numobjects].loaddecal((char*)"chimney.solid", 0);
         if(atype == spiketype)
-            model[numobjects].load((char*)"Models/spike.solid", 0);
+            model[numobjects].load((char*)"spike.solid", 0);
         if(atype == weirdtype)
-            model[numobjects].loaddecal((char*)"Models/weird.solid", 0);
+            model[numobjects].loaddecal((char*)"weird.solid", 0);
         if(atype == rocktype)
-            model[numobjects].loaddecal((char*)"Models/rock.solid", 0);
+            model[numobjects].loaddecal((char*)"rock.solid", 0);
         if(atype == treetrunktype)
-            model[numobjects].load((char*)"Models/treetrunk.solid", 0);
+            model[numobjects].load((char*)"treetrunk.solid", 0);
         if(atype == treeleavestype)
-            model[numobjects].load((char*)"Models/leaves.solid", 0);
+            model[numobjects].load((char*)"leaves.solid", 0);
         if(atype == bushtype)
-            model[numobjects].load((char*)"Models/bush.solid", 0);
+            model[numobjects].load((char*)"bush.solid", 0);
 
         if(atype == boxtype)
             friction[numobjects] = 1.5;
@@ -849,7 +849,7 @@ void Objects::MakeObject(int atype, XYZ where, float arotation, float arotation2
             friction[numobjects] = .5;
 
         if(atype == platformtype) {
-            model[numobjects].loaddecal((char*)"Models/platform.solid", 0);
+            model[numobjects].loaddecal((char*)"platform.solid", 0);
             model[numobjects].Rotate(90, 0, 0);
         }
 
